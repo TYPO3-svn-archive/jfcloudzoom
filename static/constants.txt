@@ -1,0 +1,72 @@
+plugin.tx_jfcloudzoom_pi1 {
+
+	# cat=plugin.tx_jfcloudzoom.basic/enable/010; type=boolean; label=jQuery noConflict: Use the noConflict methode
+	jQueryNoConflict = 0
+
+	# cat=plugin.tx_jfcloudzoom.basic/enable/020; type=boolean; label=Javascript in Footer: If set, the Javascript will be rendered in Footer
+	jsInFooter = 0
+
+	# cat=plugin.tx_jfcloudzoom.basic/enable/030; type=boolean; label=Minify Javascript: If set, the Javascript will be minified
+	jsMinify = 0
+
+
+	# cat=plugin.tx_jfcloudzoom.basic/file/010; type=file[js]; label=jQuery Library: Location of the jQuery Lib
+	file.jQueryLibrary = EXT:jfcloudzoom/res/jquery/js/jquery-1.4.2.min.js
+
+	# cat=plugin.tx_jfcloudzoom.basic/file/020; type=file[js]; label=jQuery Cloud-Zoom: Location of the jQuery Cloud-Zoom
+	file.jQueryCloudZoom = EXT:jfcloudzoom/res/jquery/js/jquery.cloudzoom-1.0.2.min.js
+
+
+
+	# cat=plugin.tx_jfcloudzoom.basic/typo/010; type=string; label=Image width
+	imagewidth = 600c
+
+	# cat=plugin.tx_jfcloudzoom.basic/typo/020; type=string; label=Image height
+	imageheight = 480c
+
+	# cat=plugin.tx_jfcloudzoom.basic/typo/030; type=int+; label=Scale factor: The factor to scale the image
+	scaleFactor = 2
+
+	# cat=plugin.tx_jfcloudzoom.basic/typo/040; type=options[inside,left,right,top,bottom]; label=Position: The position of the zoom
+	position = inside
+
+	# cat=plugin.tx_jfcloudzoom.basic/typo/050; type=int+; label=Smooth move
+	smoothMove = 3
+
+	# cat=plugin.tx_jfcloudzoom.basic/typo/060; type=small; label=Zoom width
+	zoomWidth = 
+
+	# cat=plugin.tx_jfcloudzoom.basic/typo/070; type=small; label=Zoom height
+	zoomHeight = 
+
+	# cat=plugin.tx_jfcloudzoom.basic/typo/080; type=int; label=Adjust X
+	adjustX = -4
+
+	# cat=plugin.tx_jfcloudzoom.basic/typo/090; type=int; label=Adjust Y
+	adjustY = -4
+
+	# cat=plugin.tx_jfcloudzoom.basic/typo/100; type=boolean; label=Show title
+	showTitle = 1
+
+	# cat=plugin.tx_jfcloudzoom.basic/typo/110; type=boolean; label=Soft focus
+	softFocus = 0
+
+	# cat=plugin.tx_jfcloudzoom.basic/typo/120; type=string; label=Options
+	options = 
+
+
+
+	# cat=plugin.tx_jfcloudzoom.basic/color/010; type=color; label=Tint color
+	tint = 
+
+	# cat=plugin.tx_jfcloudzoom.basic/color/020; type=small; label=Tint opacityle
+	tintOpacity = 
+
+	# cat=plugin.tx_jfcloudzoom.basic/color/030; type=small; label=Lens opacity
+	lensOpacity = 
+
+	# cat=plugin.tx_jfcloudzoom.basic/color/040; type=small; label=Titel opacity
+	titleOpacity = 
+
+}
+

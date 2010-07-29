@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for extension 'jfcloudzoom'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pi1_title">Cloud-Zoom</label>
+			<label index="pi1_plus_wiz_description">Add a Image with Cloud-Zoom to your content</label>
+			<label index="cms_layout.style">Display: %s</label>
+			<label index="cms_layout.not_configured">Plugin is not configured!</label>
+			<label index="cms_layout.from_ts">From Typoscript</label>
+		</languageKey>
+	</data>
+	<orig_hash type="array">
+	</orig_hash>
+	<orig_text type="array">
+	</orig_text>
+</T3locallang>

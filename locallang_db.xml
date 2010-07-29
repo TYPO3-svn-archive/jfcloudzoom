@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'jfcloudzoom'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tt_content.list_type_pi1">Cloud-Zoom</label>
+			<label index="tt_content.pi_flexform.sheet_general">General</label>
+			<label index="tt_content.pi_flexform.mode">Mode (DAM)</label>
+			<label index="tt_content.pi_flexform.mode.I.upload">Upload Images</label>
+			<label index="tt_content.pi_flexform.mode.I.folder">Folder</label>
+			<label index="tt_content.pi_flexform.mode.I.dam">DAM (dam)</label>
+			<label index="tt_content.pi_flexform.mode.I.dam_catedit">DAM category (dam_catedit)</label>
+			<label index="tt_content.pi_flexform.damimages">Images in DAM (dam)</label>
+			<label index="tt_content.pi_flexform.damcategories">Images from DAM category (dam_catedit)</label>
+			<label index="tt_content.pi_flexform.folder">Image folder</label>
+			<label index="tt_content.pi_flexform.images">Zoom Images</label>
+			<label index="tt_content.pi_flexform.captions">Image title</label>
+			<label index="tt_content.pi_flexform.showTitle">Show title</label>
+			<label index="tt_content.pi_flexform.softFocus">Use softfocus</label>
+			<label index="tt_content.pi_flexform.smoothMove">Smoth view</label>
+			<label index="tt_content.pi_flexform.sheet_settings">Settings</label>
+			<label index="tt_content.pi_flexform.imagewidth">Width</label>
+			<label index="tt_content.pi_flexform.imageheight">Height</label>
+			<label index="tt_content.pi_flexform.scaleFactor">Scale Factor</label>
+			<label index="tt_content.pi_flexform.position">Position</label>
+			<label index="tt_content.pi_flexform.zoomWidth">Zoom width</label>
+			<label index="tt_content.pi_flexform.zoomHeight">Zoom height</label>
+			<label index="tt_content.pi_flexform.adjustX">Adjust X</label>
+			<label index="tt_content.pi_flexform.adjustY">Adjust Y</label>
+			<label index="tt_content.pi_flexform.sheet_color">Color</label>
+			<label index="tt_content.pi_flexform.tint">Tint Color</label>
+			<label index="tt_content.pi_flexform.tintOpacity">Tint opacityle</label>
+			<label index="tt_content.pi_flexform.lensOpacity">Lens opacity</label>
+			<label index="tt_content.pi_flexform.titleOpacity">Titel opacity</label>
+			<label index="tt_content.pi_flexform.sheet_special">Special</label>
+			<label index="tt_content.pi_flexform.options">Enter own options (see http://www.professorcloud.com/mainsite/cloud-zoom-integration.htm)</label>
+		</languageKey>
+	</data>
+	<orig_hash type="array">
+	</orig_hash>
+	<orig_text type="array">
+	</orig_text>
+</T3locallang>

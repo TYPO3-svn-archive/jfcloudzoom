@@ -1,0 +1,322 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<sheets>
+		<general>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.sheet_general</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<images>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.images</label>
+							<config>
+								<type>group</type>
+								<internal_type>file</internal_type>
+								<allowed>files</allowed>
+								<size>12</size>
+								<maxitems>1000</maxitems>
+								<minitems>0</minitems>
+								<show_thumbs>1</show_thumbs>
+								<allowed>gif,jpg,jpeg,png</allowed>
+								<max_size>10240</max_size>
+								<uploadfolder>uploads/tx_jfcloudzoom</uploadfolder>
+							</config>
+						</TCEforms>
+					</images>
+					<captions>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.captions</label>
+							<config>
+								<type>text</type>
+								<wrap>OFF</wrap>
+								<cols>48</cols>
+								<rows>6</rows>
+							</config>
+						</TCEforms>
+					</captions>
+				</el>
+			</ROOT>
+		</general>
+		<settings>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.sheet_settings</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<imagewidth>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.imagewidth</label>
+							<config>
+								<type>input</type>
+								<size>6</size>
+								<max>6</max>
+								<eval>string</eval>
+							</config>
+						</TCEforms>
+					</imagewidth>
+					<imageheight>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.imageheight</label>
+							<config>
+								<type>input</type>
+								<size>6</size>
+								<max>6</max>
+								<eval>string</eval>
+							</config>
+						</TCEforms>
+					</imageheight>
+					<scaleFactor>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.scaleFactor</label>
+							<config>
+								<type>input</type>
+								<size>6</size>
+								<max>6</max>
+								<eval>integer</eval>
+								<range>
+									<lower>2</lower>
+									<upper>10</upper>
+								</range>
+							</config>
+						</TCEforms>
+					</scaleFactor>
+					<position>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.position</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">From Typoscript</numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">inside</numIndex>
+										<numIndex index="1">inside</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">left</numIndex>
+										<numIndex index="1">left</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">right</numIndex>
+										<numIndex index="1">right</numIndex>
+									</numIndex>
+									<numIndex index="4" type="array">
+										<numIndex index="0">top</numIndex>
+										<numIndex index="1">top</numIndex>
+									</numIndex>
+									<numIndex index="5" type="array">
+										<numIndex index="0">bottom</numIndex>
+										<numIndex index="1">bottom</numIndex>
+									</numIndex>
+								</items>
+								<size>1</size>
+								<maxitems>1</maxitems>
+							</config>
+						</TCEforms>
+					</position>
+					<smoothMove>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.smoothMove</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">From Typoscript</numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">1</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">2</numIndex>
+										<numIndex index="1">2</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">3</numIndex>
+										<numIndex index="1">3</numIndex>
+									</numIndex>
+									<numIndex index="4" type="array">
+										<numIndex index="0">4</numIndex>
+										<numIndex index="1">4</numIndex>
+									</numIndex>
+									<numIndex index="5" type="array">
+										<numIndex index="0">5</numIndex>
+										<numIndex index="1">5</numIndex>
+									</numIndex>
+									<numIndex index="6" type="array">
+										<numIndex index="0">6</numIndex>
+										<numIndex index="1">6</numIndex>
+									</numIndex>
+									<numIndex index="7" type="array">
+										<numIndex index="0">7</numIndex>
+										<numIndex index="1">7</numIndex>
+									</numIndex>
+								</items>
+								<size>1</size>
+								<maxitems>1</maxitems>
+							</config>
+						</TCEforms>
+					</smoothMove>
+					<zoomWidth>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.zoomWidth</label>
+							<config>
+								<type>input</type>
+								<size>6</size>
+								<max>6</max>
+								<checkbox>0</checkbox>
+								<eval>string,lower</eval>
+							</config>
+						</TCEforms>
+					</zoomWidth>
+					<zoomHeight>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.zoomHeight</label>
+							<config>
+								<type>input</type>
+								<size>6</size>
+								<max>6</max>
+								<checkbox>0</checkbox>
+								<eval>string,lower</eval>
+							</config>
+						</TCEforms>
+					</zoomHeight>
+					<adjustX>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.adjustX</label>
+							<config>
+								<type>input</type>
+								<size>6</size>
+								<max>6</max>
+								<checkbox>0</checkbox>
+								<eval>int</eval>
+							</config>
+						</TCEforms>
+					</adjustX>
+					<adjustY>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.adjustY</label>
+							<config>
+								<type>input</type>
+								<size>6</size>
+								<max>6</max>
+								<checkbox>0</checkbox>
+								<eval>int</eval>
+							</config>
+						</TCEforms>
+					</adjustY>
+					<showTitle>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.showTitle</label>
+							<config>
+								<type>check</type>
+								<default>1</default>
+							</config>
+						</TCEforms>
+					</showTitle>
+					<softFocus>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.softFocus</label>
+							<config>
+								<type>check</type>
+								<default>0</default>
+							</config>
+						</TCEforms>
+					</softFocus>
+				</el>
+			</ROOT>
+		</settings>
+		<color>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.sheet_color</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<tint>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.tint</label>
+							<config>
+								<type>input</type>
+								<size>6</size>
+								<wizards>
+									<color>
+										<type>colorbox</type>
+										<dim>212x18</dim>
+										<tableStyle>border:solid 1px black;</tableStyle>
+										<script>wizard_colorpicker.php</script>
+										<JSopenParams>height=340,width=360,status=0,menubar=0,scrollbars=1</JSopenParams>
+									</color>
+								</wizards>
+								<default></default>
+								<eval>#555555</eval>
+							</config>
+						</TCEforms>
+					</tint>
+					<tintOpacity>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.tintOpacity</label>
+							<config>
+								<type>input</type>
+								<size>6</size>
+								<max>6</max>
+								<checkbox>0</checkbox>
+							</config>
+						</TCEforms>
+					</tintOpacity>
+					<lensOpacity>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.lensOpacity</label>
+							<config>
+								<type>input</type>
+								<size>6</size>
+								<max>6</max>
+								<checkbox>0</checkbox>
+							</config>
+						</TCEforms>
+					</lensOpacity>
+					<titleOpacity>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.titleOpacity</label>
+							<config>
+								<type>input</type>
+								<size>6</size>
+								<max>6</max>
+								<checkbox>0</checkbox>
+							</config>
+						</TCEforms>
+					</titleOpacity>
+				</el>
+			</ROOT>
+		</color>
+		<special>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.sheet_special</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<options>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.options</label>
+							<config>
+								<type>text</type>
+								<wrap>OFF</wrap>
+								<cols>48</cols>
+								<rows>10</rows>
+							</config>
+						</TCEforms>
+					</options>
+				</el>
+			</ROOT>
+		</special>
+	</sheets>
+</T3DataStructure>

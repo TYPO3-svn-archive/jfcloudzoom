@@ -1,0 +1,2 @@
+script=res/jquery/js/jquery.cloudzoom-1.0.2.min.js
+components=jQuery,Core,Easing
