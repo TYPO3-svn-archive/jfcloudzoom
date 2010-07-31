@@ -18,54 +18,54 @@ plugin.tx_jfcloudzoom_pi1 {
 
 
 
-	# cat=plugin.tx_jfcloudzoom.basic/typo/010; type=string; label=Image width
+	# cat=plugin.tx_jfcloudzoom.basic/typo/010; type=string; label=Image width: Define the image width
 	imagewidth = 600c
 
-	# cat=plugin.tx_jfcloudzoom.basic/typo/020; type=string; label=Image height
+	# cat=plugin.tx_jfcloudzoom.basic/typo/020; type=string; label=Image height: Define the image height
 	imageheight = 480c
 
 	# cat=plugin.tx_jfcloudzoom.basic/typo/030; type=int+; label=Scale factor: The factor to scale the image
 	scaleFactor = 2
 
-	# cat=plugin.tx_jfcloudzoom.basic/typo/040; type=options[inside,left,right,top,bottom]; label=Position: The position of the zoom
+	# cat=plugin.tx_jfcloudzoom.basic/typo/040; type=options[inside,left,right,top,bottom]; label=Position: The position of the scaled area
 	position = inside
 
-	# cat=plugin.tx_jfcloudzoom.basic/typo/050; type=int+; label=Smooth move
+	# cat=plugin.tx_jfcloudzoom.basic/typo/050; type=int+; label=Smooth move: Define the level of the smooth view
 	smoothMove = 3
 
-	# cat=plugin.tx_jfcloudzoom.basic/typo/060; type=small; label=Zoom width
+	# cat=plugin.tx_jfcloudzoom.basic/typo/060; type=small; label=Zoom width: Define the width of the scaled area (possible values: auto or integer values)
 	zoomWidth = 
 
-	# cat=plugin.tx_jfcloudzoom.basic/typo/070; type=small; label=Zoom height
+	# cat=plugin.tx_jfcloudzoom.basic/typo/070; type=small; label=Zoom height: Define the height of the scaled area (possible values: auto or integer values)
 	zoomHeight = 
 
-	# cat=plugin.tx_jfcloudzoom.basic/typo/080; type=int; label=Adjust X
+	# cat=plugin.tx_jfcloudzoom.basic/typo/080; type=int; label=Adjust X: Adjust the scaled area verticaly
 	adjustX = -4
 
-	# cat=plugin.tx_jfcloudzoom.basic/typo/090; type=int; label=Adjust Y
+	# cat=plugin.tx_jfcloudzoom.basic/typo/090; type=int; label=Adjust Y: Adjust the scaled area horizontaly
 	adjustY = -4
 
-	# cat=plugin.tx_jfcloudzoom.basic/typo/100; type=boolean; label=Show title
+	# cat=plugin.tx_jfcloudzoom.basic/typo/100; type=boolean; label=Show title: If set, the title of the image will be displayed as caption
 	showTitle = 1
 
-	# cat=plugin.tx_jfcloudzoom.basic/typo/110; type=boolean; label=Soft focus
+	# cat=plugin.tx_jfcloudzoom.basic/typo/110; type=boolean; label=Soft focus: If set, the Image will have a soft focus
 	softFocus = 0
 
-	# cat=plugin.tx_jfcloudzoom.basic/typo/120; type=string; label=Options
+	# cat=plugin.tx_jfcloudzoom.basic/typo/120; type=string; label=Options: Enter own options (see http://www.professorcloud.com/mainsite/cloud-zoom-integration.htm)
 	options = 
 
 
 
-	# cat=plugin.tx_jfcloudzoom.basic/color/010; type=color; label=Tint color
+	# cat=plugin.tx_jfcloudzoom.basic/color/010; type=color; label=Tint color: Define the color for the tint
 	tint = 
 
-	# cat=plugin.tx_jfcloudzoom.basic/color/020; type=small; label=Tint opacityle
+	# cat=plugin.tx_jfcloudzoom.basic/color/020; type=small; label=Tint opacityle: Define the opacity of the tint
 	tintOpacity = 
 
-	# cat=plugin.tx_jfcloudzoom.basic/color/030; type=small; label=Lens opacity
+	# cat=plugin.tx_jfcloudzoom.basic/color/030; type=small; label=Lens opacity: Define the opacity of the lens
 	lensOpacity = 
 
-	# cat=plugin.tx_jfcloudzoom.basic/color/040; type=small; label=Titel opacity
+	# cat=plugin.tx_jfcloudzoom.basic/color/040; type=small; label=Titel opacity: Define the opacity of the title
 	titleOpacity = 
 
 }
