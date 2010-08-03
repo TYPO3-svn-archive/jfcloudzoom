@@ -68,5 +68,10 @@ plugin.tx_jfcloudzoom_pi1 {
 	# cat=plugin.tx_jfcloudzoom.basic/color/040; type=small; label=Titel opacity: Define the opacity of the title
 	titleOpacity = 
 
+
+
+	# cat=plugin.tx_jfcloudzoom.dam/basic/010; type=string; label=DAM caption fields: Comma separated string with tx_dam fields for caption fields
+	damCaptionFields = caption,description,title
+
 }
 

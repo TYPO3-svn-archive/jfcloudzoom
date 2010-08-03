@@ -92,13 +92,21 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 			// define the key of the element
 			$this->contentKey .= "_c" . $this->cObj->data['uid'];
 
-			// set the data
-			if ($this->lConf['images']) {
-				// define the images
-				$this->images = t3lib_div::trimExplode(',', $this->lConf['images']);
-				// define the captions
-				if ($this->lConf['captions']) {
-					$this->captions = t3lib_div::trimExplode(chr(10), $this->lConf['captions']);
+			// define the images
+			switch ($this->lConf['mode']) {
+				case "" : {}
+				case "folder" : {}
+				case "upload" : {
+					$this->setDataUpload();
+					break;
+				}
+				case "dam" : {
+					$this->setDataDam(false, 'tt_content', $this->cObj->data['uid']);
+					break;
+				}
+				case "dam_catedit" : {
+					$this->setDataDam(true, 'tt_content', $this->cObj->data['uid']);
+					break;
 				}
 			}
 
@@ -159,6 +167,118 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 		}
 
 		return $this->pi_wrapInBaseClass($this->parseTemplate($data));
+	}
+
+	/**
+	 * Set the Information of the images if mode = upload
+	 * @return boolean
+	 */
+	function setDataUpload()
+	{
+		if ($this->lConf['images']) {
+			// define the images
+			$this->images = t3lib_div::trimExplode(',', $this->lConf['images']);
+			// define the captions
+			if ($this->lConf['captions']) {
+				$this->captions = t3lib_div::trimExplode(chr(10), $this->lConf['captions']);
+			}
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Set the Information of the images if mode = dam
+	 * @return boolean
+	 */
+	function setDataDam($fromCategory=false, $table='tt_content', $uid=0)
+	{
+		// clear the imageDir
+		$this->imageDir = '';
+		// get all fields for captions
+		$damCaptionFields = t3lib_div::trimExplode(',', $this->conf['damCaptionFields'], true);
+		$fields = (count($damCaptionFields) > 0 ? ','.implode(',tx_dam.', $damCaptionFields) : '');
+		if ($fromCategory === true) {
+			// Get the images from dam category
+			$damcategories = $this->getDamcats($this->lConf['damcategories']);
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query(
+				tx_dam_db::getMetaInfoFieldList() . $fields,
+				'tx_dam',
+				'tx_dam_mm_cat',
+				'tx_dam_cat',
+				" AND tx_dam_cat.uid IN (".implode(",", $damcategories).") AND tx_dam.file_mime_type='image' AND tx_dam.sys_language_uid=" . $GLOBALS['TYPO3_DB']->fullQuoteStr($this->sys_language_uid, 'tx_dam'),
+				'',
+				'tx_dam.sorting',
+				''
+			);
+			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+				$images['rows'][] = $row;
+			}
+		} else {
+			// Get the images from dam
+			$images = tx_dam_db::getReferencedFiles(
+				$table,
+				$uid,
+				'jfcloudzoom',
+				'tx_dam_mm_ref',
+				tx_dam_db::getMetaInfoFieldList() . $fields,
+				"tx_dam.file_mime_type = 'image'"
+			);
+		}
+		if (count($images['rows']) > 0) {
+			// overlay the translation
+			$conf = array(
+				'sys_language_uid' => $this->sys_language_uid,
+				'lovl_mode' => ''
+			);
+			// add image
+			foreach ($images['rows'] as $key => $row) {
+				$row = tx_dam_db::getRecordOverlay('tx_dam', $row, $conf);
+				// set the data
+				$this->images[] = $row['file_path'].$row['file_name'];$
+				// set the caption
+				$caption = '';
+				unset($caption);
+				if (count($damCaptionFields) > 0) {
+					foreach ($damCaptionFields as $damCaptionField) {
+						if (! isset($caption) && trim($row[$damCaptionField])) {
+							$caption = $row[$damCaptionField];
+							break;
+						}
+					}
+				}
+				$this->captions[] = $caption;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * return all DAM categories including subcategories
+	 *
+	 * @return	array
+	 */
+	function getDamcats($dam_cat='')
+	{
+		$damCats = t3lib_div::trimExplode(",", $dam_cat, true);
+		if (count($damCats) < 1) {
+			return;
+		} else {
+			// select subcategories
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+				'uid, parent_id',
+				'tx_dam_cat',
+				'parent_id IN ('.implode(",", $damCats).') '.$this->cObj->enableFields('tx_dam_cat'),
+				'',
+				'parent_id',
+				''
+			);
+			$subcats = array();
+			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+				$damCats[] = $row['uid'];
+			}
+		}
+		return $damCats;
 	}
 
 	/**
