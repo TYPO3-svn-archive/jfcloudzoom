@@ -3,13 +3,39 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-// Static
-t3lib_extMgm::addStaticFile($_EXTKEY, 'static/', 'Cloud-Zoom');
+// CONTENT
+$tempColumns = Array (
+	"tx_jfcloudzoom_activate" => Array (
+		"exclude" => 1,
+		"label" => "LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.tx_jfcloudzoom_activate",
+		"config" => Array (
+			"type" => "check",
+		)
+	),
+	"tx_jfcloudzoom_factor" => Array (
+		"exclude" => 1,
+		"label" => "LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.tx_jfcloudzoom_factor",
+		"config" => Array (
+			"type" => "input",
+			"size" => "5",
+			"trim" => "int",
+			"default" => "2"
+		)
+	),
+);
 
-// For the content plugin
 t3lib_div::loadTCA('tt_content');
+t3lib_extMgm::addTCAcolumns('tt_content', $tempColumns, 1);
+$TCA['tt_content']['palettes']['tx_jfcloudzoom'] = array(
+	'showitem' => 'tx_jfcloudzoom_activate,tx_jfcloudzoom_factor',
+	'canNotCollapse' => 1,
+);
+t3lib_extMgm::addToAllTCAtypes('tt_content', '--palette--;LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.tx_jfcloudzoom_title;tx_jfcloudzoom', 'textpic', 'before:imagecaption');
 $TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY.'_pi1'] = 'layout,select_key,pages';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi1'] = 'pi_flexform';
+
+// Static
+t3lib_extMgm::addStaticFile($_EXTKEY, 'static/', 'Cloud-Zoom');
 
 // ICON
 t3lib_extMgm::addPlugin(array(

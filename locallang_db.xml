@@ -7,6 +7,9 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="tt_content.list_type_pi1">Cloud-Zoom</label>
+			<label index="tt_content.tx_jfcloudzoom_title">Cloud-Zoom</label>
+			<label index="tt_content.tx_jfcloudzoom_activate">Activate</label>
+			<label index="tt_content.tx_jfcloudzoom_factor">Zoom factor</label>
 			<label index="tt_content.pi_flexform.sheet_general">General</label>
 			<label index="tt_content.pi_flexform.mode">Mode (DAM)</label>
 			<label index="tt_content.pi_flexform.mode.I.upload">Upload Images</label>

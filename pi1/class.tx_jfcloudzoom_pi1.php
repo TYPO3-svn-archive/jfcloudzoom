@@ -370,10 +370,6 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 		// Add the ressources
 		$this->addResources();
 
-		if ($onlyJS === true) {
-			return true;
-		}
-
 		$return_string = null;
 		$images = null;
 		$GLOBALS['TSFE']->register['key'] = $this->contentKey;
@@ -388,6 +384,11 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 		}
 		$GLOBALS['TSFE']->register['options'] = implode(", ", $options);
 		$GLOBALS['TSFE']->register['IMAGE_NUM_CURRENT'] = 0;
+
+		if ($onlyJS === true) {
+			return true;
+		}
+
 		if (count($data) > 0) {
 			foreach ($data as $key => $item) {
 				$image = null;
