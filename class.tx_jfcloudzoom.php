@@ -30,22 +30,66 @@
 class tx_jfcloudzoom
 {
 	var $cObj;
+	var $type = 'content';
+
+	function getImageForTTnews($paramArray, $conf)
+	{
+		$markerArray = $paramArray[0];
+		$lConf = $paramArray[1];
+		$pObj = &$conf['parentObj']; // make a reference to the parent-object
+		$row = $pObj->local_cObj->data;
+		if ($row['tx_jfcloudzoom_activate']) {
+			$imageConf = "jfcloudzoomSingleImage.";
+		} else {
+			$imageConf = "image.";
+		}
+		$imageNum = isset($lConf['imageCount']) ? $lConf['imageCount']:1;
+		$imageNum = t3lib_div::intInRange($imageNum, 0, 100);
+		$theImgCode = '';
+		$imgs = t3lib_div::trimExplode(',', $row['image'], 1);
+		$imgsCaptions = explode(chr(10), $row['imagecaption']);
+		reset($imgs);
+		$cc = 0;
+		while (list($key, $val) = each($imgs)) {
+			if ($cc == $imageNum) break;
+			if ($val) {
+				// register some vars
+				$GLOBALS['TSFE']->register['image']        = $val;
+				$GLOBALS['TSFE']->register['imagecaption'] = $imgsCaptions[$cc];
+				// define the file
+				if ($row['tx_jfcloudzoom_activate']) {
+					$theImgCode .= $pObj->local_cObj->IMAGE($lConf[$imageConf]);
+				} else {
+					$theImgCode .= $pObj->local_cObj->IMAGE($lConf[$imageConf]).$pObj->local_cObj->stdWrap($imgsCaptions[$cc], $lConf['caption_stdWrap.']);
+				}
+			}
+			$cc ++;
+		}
+		$markerArray['###NEWS_IMAGE###'] = '';
+		if ($cc) {
+			$markerArray['###NEWS_IMAGE###'] = $pObj->local_cObj->wrap(trim($theImgCode), $lConf['imageWrapIfAny']);
+		}
+		return $markerArray;
+	}
 
 	function getZoom($content, $conf)
 	{
 		if ($this->cObj->data['tx_jfcloudzoom_activate'] && count($GLOBALS['TSFE']->lastImageInfo) > 0) {
+			if ($conf['type']) {
+				$this->type = $this->cObj->stdWrap($conf['type'], $conf['type.']);
+			}
 			require_once(t3lib_extMgm::extPath('jfcloudzoom') . 'pi1/class.tx_jfcloudzoom_pi1.php');
 			$obj = t3lib_div::makeInstance('tx_jfcloudzoom_pi1');
 			$obj->contentKey = $obj->extKey . '_' . $this->cObj->data['uid'];
 			$obj->conf = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_jfcloudzoom_pi1.'];
 			// override the width and height of the config
-			$obj->conf['content.']['imagewidth']  = $GLOBALS['TSFE']->lastImageInfo[0];
-			$obj->conf['content.']['imageheight'] = $GLOBALS['TSFE']->lastImageInfo[1];
+			$obj->conf[$this->type.'.']['imagewidth']  = $GLOBALS['TSFE']->lastImageInfo[0];
+			$obj->conf[$this->type.'.']['imageheight'] = $GLOBALS['TSFE']->lastImageInfo[1];
 			if ($this->cObj->data['tx_jfcloudzoom_factor'] > 1) {
-				$obj->conf['content.']['scaleFactor'] = $this->cObj->data['tx_jfcloudzoom_factor'];
+				$obj->conf[$this->type.'.']['scaleFactor'] = $this->cObj->data['tx_jfcloudzoom_factor'];
 			}
 			$obj->cObj = $this->cObj;
-			$obj->type = 'content';
+			$obj->type = $this->type;
 			$return_string = $obj->parseTemplate($data, 'uploads/pics/', true);
 		}
 		return $content;

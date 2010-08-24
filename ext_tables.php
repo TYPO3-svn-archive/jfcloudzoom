@@ -34,6 +34,17 @@ t3lib_extMgm::addToAllTCAtypes('tt_content', '--palette--;LLL:EXT:jfcloudzoom/lo
 $TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY.'_pi1'] = 'layout,select_key,pages';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi1'] = 'pi_flexform';
 
+// tt_news
+if (t3lib_extMgm::isLoaded('tt_news')) {
+	t3lib_div::loadTCA('tt_news');
+	t3lib_extMgm::addTCAcolumns('tt_news', $tempColumns, 1);
+	$TCA['tt_news']['palettes']['tx_jfcloudzoom'] = array(
+		'showitem' => 'tx_jfcloudzoom_activate,tx_jfcloudzoom_factor',
+		'canNotCollapse' => 1,
+	);
+	t3lib_extMgm::addToAllTCAtypes('tt_news', '--palette--;LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.tx_jfcloudzoom_title;tx_jfcloudzoom', '', 'after:image');
+}
+
 // Static
 t3lib_extMgm::addStaticFile($_EXTKEY, 'static/', 'Cloud-Zoom');
 

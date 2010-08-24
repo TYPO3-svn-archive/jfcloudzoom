@@ -103,11 +103,42 @@ plugin.tx_jfcloudzoom_pi1 {
 		adjustY = 0
 
 		image >
+		stdWrap >
+	}
+	ttnews < .normal
+	ttnews {
 
-		stdWrap {
-			dataWrap = <div class="cloud-zoom-content"> | </div>
-			required = 1
+		adjustX = 0
+		adjustY = 0
+
+		image {
+			file {
+				import = uploads/pics/
+				import.data = register:image
+				maxW = {$plugin.tt_news.singleMaxW}
+				maxH = {$plugin.tt_news.singleMaxH}
+			}
+			altText >
+			altText.data = register:imagecaption
+			imageLinkWrap = 1
+			imageLinkWrap {
+				enable = 1
+				typolink {
+					wrap = <div class="cloud-zoom-content"> | </div>
+					parameter.override.cObject = IMG_RESOURCE
+					parameter.override.cObject {
+						file.import.data = TSFE:lastImageInfo|origFile
+						file.width.data = register:scaledimagewidth
+						file.height.data = register:scaledimageheight
+					}
+					ATagParams = class="cloud-zoom" rel="{register:options}"
+					ATagParams.insertData = 1
+					ATagParams.stdWrap.preUserFunc = tx_jfcloudzoom->getZoom
+					ATagParams.stdWrap.preUserFunc.type = ttnews
+				}
+			}
 		}
+		stdWrap >
 	}
 
 	_CSS_DEFAULT_STYLE (
@@ -154,6 +185,19 @@ plugin.tx_jfcloudzoom_pi1 {
 }
 	)
 }
+
+
+#
+# tt_news images
+#
+[globalString = TYPO3_LOADED_EXT|tt_news|type=*]
+includeLibs.jfcloudzoom = EXT:jfcloudzoom/class.tx_jfcloudzoom.php
+plugin.tt_news {
+	imageMarkerFunc = tx_jfcloudzoom->getImageForTTnews
+	displaySingle.jfcloudzoomSingleImage < plugin.tx_jfcloudzoom_pi1.ttnews.image
+}
+[global]
+
 
 #
 # For content elements
@@ -225,3 +269,4 @@ plugin.tx_jfcloudzoom_pi1 {
 #    text.wrap = <div class="csc-textpic-text"> | </div>
 #  }
 #}
+
