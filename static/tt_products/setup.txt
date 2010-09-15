@@ -1,0 +1,20 @@
+#
+# tt_products images
+#
+[globalString = TYPO3_LOADED_EXT|tt_products|type=*] && [globalVar = GP:tt_products|product > 0]
+temp.tt_products < plugin.tt_products
+temp.jfcloudzoom_prod < plugin.tt_products
+temp.jfcloudzoom_prod.image >
+temp.jfcloudzoom_prod.image < plugin.tx_jfcloudzoom_pi1.ttproducts.image
+
+plugin.tt_products >
+plugin.tt_products = CASE
+plugin.tt_products {
+	key.dataWrap = DB:tt_products:{GP:tt_products|product}:tx_jfcloudzoom_activate
+	key.wrap3 = {|}
+	key.insertData = 1
+	default < temp.tt_products
+	1 < temp.jfcloudzoom_prod
+}
+[global]
+

@@ -1,0 +1,11 @@
+#
+# tt_news images
+#
+[globalString = TYPO3_LOADED_EXT|tt_news|type=*]
+includeLibs.jfcloudzoom = EXT:jfcloudzoom/class.tx_jfcloudzoom.php
+plugin.tt_news {
+	imageMarkerFunc = tx_jfcloudzoom->getImageForTTnews
+	displaySingle.jfcloudzoomSingleImage < plugin.tx_jfcloudzoom_pi1.ttnews.image
+}
+[global]
+

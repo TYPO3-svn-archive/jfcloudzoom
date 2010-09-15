@@ -74,6 +74,21 @@ class tx_jfcloudzoom
 
 	function getZoom($content, $conf)
 	{
+		// in case of tt_products
+		if (t3lib_extMgm::isLoaded('tt_products')) {
+			$GP = t3lib_div::_GP('tt_products');
+			if ($GP['product']) {
+				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+					'tx_jfcloudzoom_activate,tx_jfcloudzoom_factor',
+					'tt_products',
+					'uid='.$GLOBALS['TYPO3_DB']->fullQuoteStr($GP['product'], 'tt_products')
+				);
+				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+				$this->cObj->data['tx_jfcloudzoom_activate'] = $row['tx_jfcloudzoom_activate'];
+				$this->cObj->data['tx_jfcloudzoom_factor']   = $row['tx_jfcloudzoom_factor'];
+			}
+		}
+		// check if Cloud-Zoom is active ImageInfo
 		if ($this->cObj->data['tx_jfcloudzoom_activate'] && count($GLOBALS['TSFE']->lastImageInfo) > 0) {
 			if ($conf['type']) {
 				$this->type = $this->cObj->stdWrap($conf['type'], $conf['type.']);
@@ -95,6 +110,7 @@ class tx_jfcloudzoom
 		return $content;
 	}
 }
+
 
 // XCLASS inclusion code
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jfcloudzoom/class.tx_jfcloudzoom.php']) {

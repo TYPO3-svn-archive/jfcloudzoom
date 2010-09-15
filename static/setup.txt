@@ -60,6 +60,7 @@ plugin.tx_jfcloudzoom_pi1 {
 			required = 1
 		}
 	}
+
 	header < .normal
 	header {
 
@@ -96,6 +97,7 @@ plugin.tx_jfcloudzoom_pi1 {
 			required = 1
 		}
 	}
+
 	content < .normal
 	content {
 
@@ -105,6 +107,7 @@ plugin.tx_jfcloudzoom_pi1 {
 		image >
 		stdWrap >
 	}
+
 	ttnews < .normal
 	ttnews {
 
@@ -135,6 +138,42 @@ plugin.tx_jfcloudzoom_pi1 {
 					ATagParams.insertData = 1
 					ATagParams.stdWrap.preUserFunc = tx_jfcloudzoom->getZoom
 					ATagParams.stdWrap.preUserFunc.type = ttnews
+				}
+			}
+		}
+		stdWrap >
+	}
+
+	ttproducts < .normal
+	ttproducts {
+
+		adjustX = 0
+		adjustY = 0
+
+		image {
+			file {
+				import = uploads/pics/
+				import.data = register:image
+				maxW = {$plugin.tt_products.maxW_single}
+				maxH = {$plugin.tt_products.maxH_single}
+			}
+			altText >
+			altText.data = register:imagecaption
+			imageLinkWrap = 1
+			imageLinkWrap {
+				enable = 1
+				typolink {
+					wrap = <div class="cloud-zoom-content"> | </div>
+					parameter.override.cObject = IMG_RESOURCE
+					parameter.override.cObject {
+						file.import.data = TSFE:lastImageInfo|origFile
+						file.width.data = register:scaledimagewidth
+						file.height.data = register:scaledimageheight
+					}
+					ATagParams = class="cloud-zoom" rel="{register:options}"
+					ATagParams.insertData = 1
+					ATagParams.stdWrap.preUserFunc = tx_jfcloudzoom->getZoom
+					ATagParams.stdWrap.preUserFunc.type = ttproducts
 				}
 			}
 		}
@@ -185,19 +224,6 @@ plugin.tx_jfcloudzoom_pi1 {
 }
 	)
 }
-
-
-#
-# tt_news images
-#
-[globalString = TYPO3_LOADED_EXT|tt_news|type=*]
-includeLibs.jfcloudzoom = EXT:jfcloudzoom/class.tx_jfcloudzoom.php
-plugin.tt_news {
-	imageMarkerFunc = tx_jfcloudzoom->getImageForTTnews
-	displaySingle.jfcloudzoomSingleImage < plugin.tx_jfcloudzoom_pi1.ttnews.image
-}
-[global]
-
 
 #
 # For content elements
