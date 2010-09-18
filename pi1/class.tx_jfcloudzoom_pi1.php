@@ -117,6 +117,12 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 			if ($this->lConf['imageheight']) {
 				$this->conf[$this->type.'.']['imageheight'] = $this->lConf['imageheight'];
 			}
+			if ($this->lConf['thumbnailwidth']) {
+				$this->conf[$this->type.'.']['thumbnailwidth'] = $this->lConf['thumbnailwidth'];
+			}
+			if ($this->lConf['thumbnailheight']) {
+				$this->conf[$this->type.'.']['thumbnailheight'] = $this->lConf['thumbnailheight'];
+			}
 			if ($this->lConf['scaleFactor']) {
 				$this->conf[$this->type.'.']['scaleFactor'] = $this->lConf['scaleFactor'];
 			}
@@ -150,9 +156,10 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 			if ($this->lConf['titleOpacity']) {
 				$this->conf[$this->type.'.']['titleOpacity'] = $this->lConf['titleOpacity'];
 			}
-			$this->conf[$this->type.'.']['softFocus'] = $this->lConf['softFocus'];
-			$this->conf[$this->type.'.']['showTitle'] = $this->lConf['showTitle'];
-			$this->conf[$this->type.'.']['options']   = $this->lConf['options'];
+			$this->conf[$this->type.'.']['softFocus']     = $this->lConf['softFocus'];
+			$this->conf[$this->type.'.']['showTitle']     = $this->lConf['showTitle'];
+			$this->conf[$this->type.'.']['useThumbnails'] = $this->lConf['useThumbnails'];
+			$this->conf[$this->type.'.']['options']       = $this->lConf['options'];
 		} else {
 			$this->type = 'header';
 			// It's the header
@@ -375,6 +382,8 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 		$GLOBALS['TSFE']->register['key'] = $this->contentKey;
 		$GLOBALS['TSFE']->register['imagewidth']  = $this->conf[$this->type.'.']['imagewidth'];
 		$GLOBALS['TSFE']->register['imageheight'] = $this->conf[$this->type.'.']['imageheight'];
+		$GLOBALS['TSFE']->register['thumbnailwidth']  = $this->conf[$this->type.'.']['thumbnailwidth'];
+		$GLOBALS['TSFE']->register['thumbnailheight'] = $this->conf[$this->type.'.']['thumbnailheight'];
 		// scaled image width
 		if (preg_match("/([0-9]*)(.*)/i", $this->conf[$this->type.'.']['imagewidth'], $reg)) {
 			$GLOBALS['TSFE']->register['scaledimagewidth'] = ($reg[1] * $this->conf[$this->type.'.']['scaleFactor']).$reg[2];
@@ -392,17 +401,30 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 		if (count($data) > 0) {
 			foreach ($data as $key => $item) {
 				$image = null;
-				$imgConf = $this->conf[$this->type.'.']['image.'];
+				$thumbnail = null;
 				$totalImagePath = $dir . $item['image'];
 				$GLOBALS['TSFE']->register['file']    = $totalImagePath;
 				$GLOBALS['TSFE']->register['caption'] = $item['caption'];
-				$image = $this->cObj->IMAGE($imgConf);
-				$image = $this->cObj->typolink($image, $imgConf['imageLinkWrap.']);
+				$image = trim($this->cObj->cObjGetSingle($this->conf[$this->type.'.']['image'], $this->conf[$this->type.'.']['image.']));
 				$image = $this->cObj->stdWrap($image, $this->conf[$this->type.'.']['itemWrap.']);
-				$images .= $image;
+				$GLOBALS['TSFE']->register['smallImageURL'] = $GLOBALS['TSFE']->lastImageInfo[3];
+				if ($this->conf[$this->type.'.']['useThumbnails']) {
+					// small images will be rendered
+					$thumbnail = trim($this->cObj->cObjGetSingle($this->conf[$this->type.'.']['thumbnail'], $this->conf[$this->type.'.']['thumbnail.']));
+					$thumbnail = $this->cObj->stdWrap($thumbnail, $this->conf[$this->type.'.']['thumbnailWrap.']);
+					$thumbnails .= $thumbnail;
+					if (! $images) {
+						$images = $image;
+					}
+				} else {
+					$images .= $image;
+				}
 				$GLOBALS['TSFE']->register['IMAGE_NUM_CURRENT'] ++;
 			}
-			$return_string = $this->cObj->stdWrap($images, $this->conf[$this->type.'.']['stdWrap.']);
+			$markerArray = array();
+			$markerArray['THUMBNAILS'] = $this->cObj->stdWrap($thumbnails, $this->conf[$this->type.'.']['thumbnailsWrap.']);
+			$images = $this->cObj->stdWrap($images, $this->conf[$this->type.'.']['stdWrap.']);
+			$return_string = $this->cObj->substituteMarkerArray($images, $markerArray, '###|###', 0);
 		}
 		return $return_string;
 	}

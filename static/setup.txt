@@ -13,6 +13,8 @@ plugin.tx_jfcloudzoom_pi1 {
 
 		imagewidth = {$plugin.tx_jfcloudzoom_pi1.imagewidth}
 		imageheight = {$plugin.tx_jfcloudzoom_pi1.imageheight}
+		thumbnailwidth = {$plugin.tx_jfcloudzoom_pi1.thumbnailwidth}
+		thumbnailheight = {$plugin.tx_jfcloudzoom_pi1.thumbnailheight}
 		scaleFactor = {$plugin.tx_jfcloudzoom_pi1.scaleFactor}
 		position = {$plugin.tx_jfcloudzoom_pi1.position}
 		smoothMove = {$plugin.tx_jfcloudzoom_pi1.smoothMove}
@@ -22,6 +24,7 @@ plugin.tx_jfcloudzoom_pi1 {
 		adjustY = {$plugin.tx_jfcloudzoom_pi1.adjustY}
 		showTitle = {$plugin.tx_jfcloudzoom_pi1.showTitle}
 		softFocus = {$plugin.tx_jfcloudzoom_pi1.softFocus}
+		useThumbnails = {$plugin.tx_jfcloudzoom_pi1.useThumbnails}
 		options = {$plugin.tx_jfcloudzoom_pi1.options}
 
 		tint = {$plugin.tx_jfcloudzoom_pi1.tint}
@@ -29,6 +32,7 @@ plugin.tx_jfcloudzoom_pi1 {
 		lensOpacity = {$plugin.tx_jfcloudzoom_pi1.lensOpacity}
 		titleOpacity = {$plugin.tx_jfcloudzoom_pi1.titleOpacity}
 
+		image = IMAGE
 		image {
 			file {
 				import.data = register:file
@@ -46,17 +50,47 @@ plugin.tx_jfcloudzoom_pi1 {
 						file.width.data = register:scaledimagewidth
 						file.height.data = register:scaledimageheight
 					}
-					ATagParams = class="cloud-zoom" rel="{register:options}"
+					ATagParams = class="cloud-zoom" rel="{register:options}" id="{register:key}-{register:IMAGE_NUM_CURRENT}"
 					ATagParams.insertData = 1
 				}
 			}
 		}
-		stdWrap {
-			dataWrap = <div class="cloud-zoom-normal"> | </div>
-			required = 1
-		}
 		itemWrap {
 			dataWrap = <div class="cloud-zoom-image-small" style="width:{TSFE:lastImageInfo|0}px; height:{TSFE:lastImageInfo|1}px;"> | </div>
+			required = 1
+		}
+
+		thumbnail = IMAGE
+		thumbnail {
+			file {
+				import.data = register:file
+				width.data = register:thumbnailwidth
+				height.data = register:thumbnailheight
+			}
+			altText.data = register:caption
+			imageLinkWrap = 1
+			imageLinkWrap {
+				enable = 1
+				typolink {
+					parameter.override.cObject = IMG_RESOURCE
+					parameter.override.cObject {
+						file.import.data = TSFE:lastImageInfo|origFile
+						file.width.data = register:scaledimagewidth
+						file.height.data = register:scaledimageheight
+					}
+					ATagParams = class="cloud-zoom-gallery" rel="useZoom:'{register:key}-0',smallImage:'{register:smallImageURL}'"
+					ATagParams.insertData = 1
+				}
+			}
+		}
+		thumbnailWrap {
+			wrap = |
+		}
+		thumbnailsWrap {
+			wrap = |
+		}
+		stdWrap {
+			dataWrap = <div class="cloud-zoom-normal"> | ###THUMBNAILS###</div>
 			required = 1
 		}
 	}
@@ -68,6 +102,7 @@ plugin.tx_jfcloudzoom_pi1 {
 		adjustY = 0
 
 		image >
+		image = IMAGE
 		image {
 			file {
 				import = uploads/pics/
@@ -114,6 +149,7 @@ plugin.tx_jfcloudzoom_pi1 {
 		adjustX = 0
 		adjustY = 0
 
+		image = IMAGE
 		image {
 			file {
 				import = uploads/pics/
@@ -150,6 +186,7 @@ plugin.tx_jfcloudzoom_pi1 {
 		adjustX = 0
 		adjustY = 0
 
+		image = IMAGE
 		image {
 			file {
 				import = uploads/pics/
@@ -184,6 +221,9 @@ plugin.tx_jfcloudzoom_pi1 {
 .cloud-zoom-image-small {
 	border: 4px solid #ccc;
 	margin-bottom: 5px;
+}
+.cloud-zoom-gallery {
+	padding: 3px;
 }
 .cloud-zoom-lens {
 	border: 4px solid #888;
