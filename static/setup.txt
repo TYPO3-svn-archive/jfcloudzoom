@@ -3,6 +3,8 @@ plugin.tx_jfcloudzoom_pi1 {
 	jQueryNoConflict = {$plugin.tx_jfcloudzoom_pi1.jQueryNoConflict}
 	jsInFooter = {$plugin.tx_jfcloudzoom_pi1.jsInFooter}
 	jsMinify = {$plugin.tx_jfcloudzoom_pi1.jsMinify}
+	jsInline = {$plugin.tx_jfcloudzoom_pi1.jsInline}
+	cssMinify = {$plugin.tx_jfcloudzoom_pi1.cssMinify}
 
 	jQueryLibrary = {$plugin.tx_jfcloudzoom_pi1.file.jQueryLibrary}
 	jQueryCloudZoom = {$plugin.tx_jfcloudzoom_pi1.file.jQueryCloudZoom}
@@ -68,6 +70,7 @@ plugin.tx_jfcloudzoom_pi1 {
 				height.data = register:thumbnailheight
 			}
 			altText.data = register:caption
+			titleText.data = register:caption
 			imageLinkWrap = 1
 			imageLinkWrap {
 				enable = 1

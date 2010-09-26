@@ -364,7 +364,9 @@
 					$('#' + data.useZoom).attr('href', event.data.attr('href'));
 					// Change the small image to point to the new small image.
 					$('#' + data.useZoom + ' img').attr('src', event.data.data('relOpts').smallImage);
-					// Init a new zoom with the new images.				
+					// set the new title from a href
+					$('#' + data.useZoom + ' img').attr('title', event.data.children('img').attr('title'));
+					// Init a new zoom with the new images.
 					$('#' + event.data.data('relOpts').useZoom).CloudZoom();
 					return false;
 				});
