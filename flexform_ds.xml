@@ -113,9 +113,9 @@
 							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.imagewidth</label>
 							<config>
 								<type>input</type>
-								<size>6</size>
-								<max>6</max>
-								<eval>string</eval>
+								<size>16</size>
+								<max>16</max>
+								<eval>nospace</eval>
 							</config>
 						</TCEforms>
 					</imagewidth>
@@ -124,9 +124,9 @@
 							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.imageheight</label>
 							<config>
 								<type>input</type>
-								<size>6</size>
-								<max>6</max>
-								<eval>string</eval>
+								<size>16</size>
+								<max>16</max>
+								<eval>nospace</eval>
 							</config>
 						</TCEforms>
 					</imageheight>
@@ -135,9 +135,9 @@
 							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.thumbnailwidth</label>
 							<config>
 								<type>input</type>
-								<size>6</size>
-								<max>6</max>
-								<eval>string</eval>
+								<size>16</size>
+								<max>16</max>
+								<eval>nospace</eval>
 							</config>
 						</TCEforms>
 					</thumbnailwidth>
@@ -146,9 +146,9 @@
 							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.thumbnailheight</label>
 							<config>
 								<type>input</type>
-								<size>6</size>
-								<max>6</max>
-								<eval>string</eval>
+								<size>16</size>
+								<max>16</max>
+								<eval>nospace</eval>
 							</config>
 						</TCEforms>
 					</thumbnailheight>
@@ -156,17 +156,32 @@
 						<TCEforms>
 							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.scaleFactor</label>
 							<config>
-								<type>input</type>
-								<size>6</size>
-								<max>6</max>
-								<eval>integer</eval>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jftcaforms/lib/class.tx_jftcaforms_tceFunc.php:&tx_jftcaforms_tceFunc->getExtSlider]]></userFunc>
+								<width>300</width>
 								<range>
 									<lower>2</lower>
-									<upper>10</upper>
+									<upper>16</upper>
 								</range>
+								<emptyValue>1</emptyValue>
 							</config>
 						</TCEforms>
 					</scaleFactor>
+					<smoothMove>
+						<TCEforms>
+							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.smoothMove</label>
+							<config>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jftcaforms/lib/class.tx_jftcaforms_tceFunc.php:&tx_jftcaforms_tceFunc->getExtSlider]]></userFunc>
+								<width>300</width>
+								<range>
+									<lower>0</lower>
+									<upper>10</upper>
+								</range>
+								<emptyValue>1</emptyValue>
+							</config>
+						</TCEforms>
+					</smoothMove>
 					<position>
 						<TCEforms>
 							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.position</label>
@@ -174,7 +189,7 @@
 								<type>select</type>
 								<items type="array">
 									<numIndex index="0" type="array">
-										<numIndex index="0">From Typoscript</numIndex>
+										<numIndex index="0">LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.from_ts</numIndex>
 										<numIndex index="1"></numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
@@ -203,50 +218,6 @@
 							</config>
 						</TCEforms>
 					</position>
-					<smoothMove>
-						<TCEforms>
-							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.smoothMove</label>
-							<config>
-								<type>select</type>
-								<items type="array">
-									<numIndex index="0" type="array">
-										<numIndex index="0">From Typoscript</numIndex>
-										<numIndex index="1"></numIndex>
-									</numIndex>
-									<numIndex index="1" type="array">
-										<numIndex index="0">1</numIndex>
-										<numIndex index="1">1</numIndex>
-									</numIndex>
-									<numIndex index="2" type="array">
-										<numIndex index="0">2</numIndex>
-										<numIndex index="1">2</numIndex>
-									</numIndex>
-									<numIndex index="3" type="array">
-										<numIndex index="0">3</numIndex>
-										<numIndex index="1">3</numIndex>
-									</numIndex>
-									<numIndex index="4" type="array">
-										<numIndex index="0">4</numIndex>
-										<numIndex index="1">4</numIndex>
-									</numIndex>
-									<numIndex index="5" type="array">
-										<numIndex index="0">5</numIndex>
-										<numIndex index="1">5</numIndex>
-									</numIndex>
-									<numIndex index="6" type="array">
-										<numIndex index="0">6</numIndex>
-										<numIndex index="1">6</numIndex>
-									</numIndex>
-									<numIndex index="7" type="array">
-										<numIndex index="0">7</numIndex>
-										<numIndex index="1">7</numIndex>
-									</numIndex>
-								</items>
-								<size>1</size>
-								<maxitems>1</maxitems>
-							</config>
-						</TCEforms>
-					</smoothMove>
 					<zoomWidth>
 						<TCEforms>
 							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.zoomWidth</label>
@@ -254,8 +225,7 @@
 								<type>input</type>
 								<size>6</size>
 								<max>6</max>
-								<checkbox>0</checkbox>
-								<eval>string,lower</eval>
+								<eval>lower</eval>
 							</config>
 						</TCEforms>
 					</zoomWidth>
@@ -266,8 +236,7 @@
 								<type>input</type>
 								<size>6</size>
 								<max>6</max>
-								<checkbox>0</checkbox>
-								<eval>string,lower</eval>
+								<eval>lower</eval>
 							</config>
 						</TCEforms>
 					</zoomHeight>
@@ -299,8 +268,9 @@
 						<TCEforms>
 							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.showTitle</label>
 							<config>
-								<type>check</type>
-								<default>1</default>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jfcloudzoom/lib/class.tx_jfcloudzoom_tceFunc.php:&tx_jfcloudzoom_tceFunc->getCheckbox]]></userFunc>
+								<checked>1</checked>
 							</config>
 						</TCEforms>
 					</showTitle>
@@ -308,8 +278,9 @@
 						<TCEforms>
 							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.softFocus</label>
 							<config>
-								<type>check</type>
-								<default>0</default>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jfcloudzoom/lib/class.tx_jfcloudzoom_tceFunc.php:&tx_jfcloudzoom_tceFunc->getCheckbox]]></userFunc>
+								<checked>0</checked>
 							</config>
 						</TCEforms>
 					</softFocus>
@@ -317,8 +288,9 @@
 						<TCEforms>
 							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.useThumbnails</label>
 							<config>
-								<type>check</type>
-								<default>0</default>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jfcloudzoom/lib/class.tx_jfcloudzoom_tceFunc.php:&tx_jfcloudzoom_tceFunc->getCheckbox]]></userFunc>
+								<checked>0</checked>
 							</config>
 						</TCEforms>
 					</useThumbnails>
@@ -356,10 +328,15 @@
 						<TCEforms>
 							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.tintOpacity</label>
 							<config>
-								<type>input</type>
-								<size>6</size>
-								<max>6</max>
-								<checkbox>0</checkbox>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jftcaforms/lib/class.tx_jftcaforms_tceFunc.php:&tx_jftcaforms_tceFunc->getExtSlider]]></userFunc>
+								<width>300</width>
+								<range>
+									<lower>0</lower>
+									<upper>1</upper>
+								</range>
+								<decimalPrecision>2</decimalPrecision>
+								<emptyValue>1</emptyValue>
 							</config>
 						</TCEforms>
 					</tintOpacity>
@@ -367,10 +344,15 @@
 						<TCEforms>
 							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.lensOpacity</label>
 							<config>
-								<type>input</type>
-								<size>6</size>
-								<max>6</max>
-								<checkbox>0</checkbox>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jftcaforms/lib/class.tx_jftcaforms_tceFunc.php:&tx_jftcaforms_tceFunc->getExtSlider]]></userFunc>
+								<width>300</width>
+								<range>
+									<lower>0</lower>
+									<upper>1</upper>
+								</range>
+								<decimalPrecision>2</decimalPrecision>
+								<emptyValue>1</emptyValue>
 							</config>
 						</TCEforms>
 					</lensOpacity>
@@ -378,10 +360,15 @@
 						<TCEforms>
 							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.titleOpacity</label>
 							<config>
-								<type>input</type>
-								<size>6</size>
-								<max>6</max>
-								<checkbox>0</checkbox>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jftcaforms/lib/class.tx_jftcaforms_tceFunc.php:&tx_jftcaforms_tceFunc->getExtSlider]]></userFunc>
+								<width>300</width>
+								<range>
+									<lower>0</lower>
+									<upper>1</upper>
+								</range>
+								<decimalPrecision>2</decimalPrecision>
+								<emptyValue>1</emptyValue>
 							</config>
 						</TCEforms>
 					</titleOpacity>

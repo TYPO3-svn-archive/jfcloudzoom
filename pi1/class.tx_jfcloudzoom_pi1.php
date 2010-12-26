@@ -123,7 +123,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 			if ($this->lConf['thumbnailheight']) {
 				$this->conf[$this->type.'.']['thumbnailheight'] = $this->lConf['thumbnailheight'];
 			}
-			if ($this->lConf['scaleFactor']) {
+			if ($this->lConf['scaleFactor'] > 0) {
 				$this->conf[$this->type.'.']['scaleFactor'] = $this->lConf['scaleFactor'];
 			}
 			if ($this->lConf['position']) {
@@ -156,9 +156,16 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 			if ($this->lConf['titleOpacity']) {
 				$this->conf[$this->type.'.']['titleOpacity'] = $this->lConf['titleOpacity'];
 			}
-			$this->conf[$this->type.'.']['softFocus']     = $this->lConf['softFocus'];
-			$this->conf[$this->type.'.']['showTitle']     = $this->lConf['showTitle'];
-			$this->conf[$this->type.'.']['useThumbnails'] = $this->lConf['useThumbnails'];
+			// Will be overridden, if not "from TS"
+			if ($this->lConf['softFocus'] < 2) {
+				$this->conf[$this->type.'.']['softFocus'] = $this->lConf['softFocus'];
+			}
+			if ($this->lConf['showTitle'] < 2) {
+				$this->conf[$this->type.'.']['showTitle'] = $this->lConf['showTitle'];
+			}
+			if ($this->lConf['useThumbnails'] < 2) {
+				$this->conf[$this->type.'.']['useThumbnails'] = $this->lConf['useThumbnails'];
+			}
 			$this->conf[$this->type.'.']['options']       = $this->lConf['options'];
 		} else {
 			$this->type = 'header';

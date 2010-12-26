@@ -43,6 +43,10 @@
 			<label index="tt_content.pi_flexform.titleOpacity">Titel opacity</label>
 			<label index="tt_content.pi_flexform.sheet_special">Special</label>
 			<label index="tt_content.pi_flexform.options">Enter own options (see http://www.professorcloud.com/mainsite/cloud-zoom-integration.htm)</label>
+
+			<label index="tt_content.pi_flexform.from_ts">From Typoscript</label>
+			<label index="tt_content.pi_flexform.no">No</label>
+			<label index="tt_content.pi_flexform.yes">Yes</label>
 		</languageKey>
 	</data>
 	<orig_hash type="array">

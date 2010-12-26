@@ -1,0 +1,7 @@
+
+# cat=basic/enable/10; type=boolean; label=Enable select instead of checkbox: If set, most of checkboxes will turn into selectboxes, so you can choose "from TS"
+useSelectInsteadCheckbox = 0
+
+
+# cat=basic/dev/1000; type=user[EXT:jfcloudzoom/lib/class.tx_jfcloudzoom_tsparserext.php:tx_jfcloudzoom_tsparserext->displayMessage]; label=Updater
+updateMessage = 0
