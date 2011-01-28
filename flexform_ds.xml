@@ -248,7 +248,7 @@
 								<size>6</size>
 								<max>6</max>
 								<checkbox>0</checkbox>
-								<eval>int</eval>
+								<eval>string</eval>
 							</config>
 						</TCEforms>
 					</adjustX>
@@ -260,7 +260,7 @@
 								<size>6</size>
 								<max>6</max>
 								<checkbox>0</checkbox>
-								<eval>int</eval>
+								<eval>string</eval>
 							</config>
 						</TCEforms>
 					</adjustY>
