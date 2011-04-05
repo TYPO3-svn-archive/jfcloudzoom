@@ -45,15 +45,14 @@ class tx_jfcloudzoom_pi1_wizicon
 	 * @param	array		$wizardItems: The wizard items
 	 * @return	Modified array with wizard items
 	 */
-	function proc($wizardItems)	{
-		global $LANG;
-
+	public function proc($wizardItems)
+	{
 		$LL = $this->includeLocalLang();
 
 		$wizardItems['plugins_tx_jfcloudzoom_pi1'] = array(
 			'icon'=>t3lib_extMgm::extRelPath('jfcloudzoom').'pi1/ce_wiz.gif',
-			'title'=>$LANG->getLLL('pi1_title',$LL),
-			'description'=>$LANG->getLLL('pi1_plus_wiz_description',$LL),
+			'title'=>$GLOBALS['LANG']->getLLL('pi1_title',$LL),
+			'description'=>$GLOBALS['LANG']->getLLL('pi1_plus_wiz_description',$LL),
 			'params'=>'&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=jfcloudzoom_pi1'
 		);
 
@@ -65,7 +64,7 @@ class tx_jfcloudzoom_pi1_wizicon
 	 *
 	 * @return	The array with language labels
 	 */
-	function includeLocalLang()	{
+	public function includeLocalLang()	{
 		$llFile = t3lib_extMgm::extPath('jfcloudzoom').'locallang.xml';
 		$LOCAL_LANG = t3lib_div::readLLXMLfile($llFile, $GLOBALS['LANG']->lang);
 
@@ -75,7 +74,7 @@ class tx_jfcloudzoom_pi1_wizicon
 
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jfcloudzoom/pi1/class.tx_jfcloudzoom_pi1_wizicon.php'])	{
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jfcloudzoom/pi1/class.tx_jfcloudzoom_pi1_wizicon.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jfcloudzoom/pi1/class.tx_jfcloudzoom_pi1_wizicon.php']);
 }
 

@@ -42,19 +42,19 @@ if (t3lib_extMgm::isLoaded('t3jquery')) {
  */
 class tx_jfcloudzoom_pi1 extends tslib_pibase
 {
-	var $prefixId      = 'tx_jfcloudzoom_pi1';		// Same as class name
-	var $scriptRelPath = 'pi1/class.tx_jfcloudzoom_pi1.php';	// Path to this script relative to the extension dir.
-	var $extKey        = 'jfcloudzoom';	// The extension key.
-	var $pi_checkCHash = true;
-	var $lConf = array();
-	var $contentKey = null;
-	var $jsFiles = array();
-	var $js = array();
-	var $css = array();
-	var $images = array();
-	var $captions = array();
-	var $imageDir = 'uploads/tx_jfcloudzoom/';
-	var $type = 'normal';
+	public $prefixId      = 'tx_jfcloudzoom_pi1';		// Same as class name
+	public $scriptRelPath = 'pi1/class.tx_jfcloudzoom_pi1.php';	// Path to this script relative to the extension dir.
+	public $extKey        = 'jfcloudzoom';	// The extension key.
+	public $pi_checkCHash = true;
+	public $images = array();
+	public $captions = array();
+	public $type = 'normal';
+	protected $lConf = array();
+	protected $contentKey = null;
+	protected $jsFiles = array();
+	protected $js = array();
+	protected $css = array();
+	protected $imageDir = 'uploads/tx_jfcloudzoom/';
 
 	/**
 	 * The main method of the PlugIn
@@ -63,14 +63,14 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	 * @param	array		$conf: The PlugIn configuration
 	 * @return	The content that is displayed on the website
 	 */
-	function main($content, $conf)
+	public function main($content, $conf)
 	{
 		$this->conf = $conf;
 		$this->pi_setPiVarDefaults();
 		$this->pi_loadLL();
 
 		// define the key of the element
-		$this->contentKey = "jfcloudzoom";
+		$this->setContentKey("jfcloudzoom");
 
 		// set the system language
 		$this->sys_language_uid = $GLOBALS['TSFE']->sys_language_content;
@@ -90,7 +90,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 			}
 
 			// define the key of the element
-			$this->contentKey .= "_c" . $this->cObj->data['uid'];
+			$this->setContentKey("jfcloudzoom_c" . $this->cObj->data['uid']);
 
 			// define the images
 			switch ($this->lConf['mode']) {
@@ -187,7 +187,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	 * Set the Information of the images if mode = upload
 	 * @return boolean
 	 */
-	function setDataUpload()
+	protected function setDataUpload()
 	{
 		if ($this->lConf['images']) {
 			// define the images
@@ -205,7 +205,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	 * Set the Information of the images if mode = dam
 	 * @return boolean
 	 */
-	function setDataDam($fromCategory=false, $table='tt_content', $uid=0)
+	protected function setDataDam($fromCategory=false, $table='tt_content', $uid=0)
 	{
 		// clear the imageDir
 		$this->imageDir = '';
@@ -272,7 +272,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	 *
 	 * @return	array
 	 */
-	function getDamcats($dam_cat='')
+	protected function getDamcats($dam_cat='')
 	{
 		$damCats = t3lib_div::trimExplode(",", $dam_cat, true);
 		if (count($damCats) < 1) {
@@ -296,11 +296,29 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	}
 
 	/**
+	 * Set the contentKey
+	 * @param string $contentKey
+	 */
+	public function setContentKey($contentKey=null)
+	{
+		$this->contentKey = ($contentKey == null ? $this->extKey : $contentKey);
+	}
+
+	/**
+	 * Get the contentKey
+	 * @return string
+	 */
+	public function getContentKey()
+	{
+		return $this->contentKey;
+	}
+
+	/**
 	 * Parse all images into the template
 	 * @param $data
 	 * @return string
 	 */
-	function parseTemplate($data=array(), $dir='', $onlyJS=false)
+	public function parseTemplate($data=array(), $dir='', $onlyJS=false)
 	{
 		// define the directory of images
 		if ($dir == '') {
@@ -313,8 +331,8 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 		}
 
 		// define the contentKey if not exist
-		if ($this->contentKey == '') {
-			$this->contentKey = "jfcloudzoom_key";
+		if ($this->getContentKey() == '') {
+			$this->setContentKey("jfcloudzoom_key");
 		}
 
 		// define the jQuery mode and function
@@ -386,7 +404,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 
 		$return_string = null;
 		$images = null;
-		$GLOBALS['TSFE']->register['key'] = $this->contentKey;
+		$GLOBALS['TSFE']->register['key'] = $this->getContentKey();
 		$GLOBALS['TSFE']->register['imagewidth']  = $this->conf[$this->type.'.']['imagewidth'];
 		$GLOBALS['TSFE']->register['imageheight'] = $this->conf[$this->type.'.']['imageheight'];
 		$GLOBALS['TSFE']->register['thumbnailwidth']  = $this->conf[$this->type.'.']['thumbnailwidth'];
@@ -441,7 +459,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	 *
 	 * @return void
 	 */
-	function addResources()
+	protected function addResources()
 	{
 		// checks if t3jquery is loaded
 		if (T3JQUERY === true) {
@@ -563,7 +581,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	 * @param string $path
 	 * return string
 	 */
-	function getPath($path="")
+	protected function getPath($path="")
 	{
 		return $GLOBALS['TSFE']->tmpl->getFileName($path);
 	}
@@ -575,7 +593,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	 * @param boolean $first
 	 * @return void
 	 */
-	function addJsFile($script="", $first=false)
+	protected function addJsFile($script="", $first=false)
 	{
 		$script = t3lib_div::fixWindowsFilePath($script);
 		if ($this->getPath($script) && ! in_array($script, $this->jsFiles)) {
@@ -593,7 +611,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	 * @param string $script
 	 * @return void
 	 */
-	function addJS($script="")
+	protected function addJS($script="")
 	{
 		if (! in_array($script, $this->js)) {
 			$this->js[] = $script;
@@ -606,7 +624,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	 * @param string $script
 	 * @return void
 	 */
-	function addCssFile($script="")
+	protected function addCssFile($script="")
 	{
 		$script = t3lib_div::fixWindowsFilePath($script);
 		if ($this->getPath($script) && ! in_array($script, $this->cssFiles)) {
@@ -620,7 +638,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	 * @param string $script
 	 * @return void
 	 */
-	function addCSS($script="")
+	protected function addCSS($script="")
 	{
 		if (! in_array($script, $this->css)) {
 			$this->css[] = $script;
@@ -632,7 +650,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	 * @param string $key
 	 * @return string
 	 */
-	function getExtensionVersion($key)
+	protected function getExtensionVersion($key)
 	{
 		if (! t3lib_extMgm::isLoaded($key)) {
 			return '';

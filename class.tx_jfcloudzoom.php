@@ -29,10 +29,10 @@
  */
 class tx_jfcloudzoom
 {
-	var $cObj;
-	var $type = 'content';
+	public $cObj;
+	public $type = 'content';
 
-	function getImageForTTnews($paramArray, $conf)
+	public function getImageForTTnews($paramArray, $conf)
 	{
 		$markerArray = $paramArray[0];
 		$lConf = $paramArray[1];
@@ -72,7 +72,7 @@ class tx_jfcloudzoom
 		return $markerArray;
 	}
 
-	function getZoom($content, $conf)
+	public function getZoom($content, $conf)
 	{
 		// in case of tt_products
 		if (t3lib_extMgm::isLoaded('tt_products')) {
@@ -95,7 +95,7 @@ class tx_jfcloudzoom
 			}
 			require_once(t3lib_extMgm::extPath('jfcloudzoom') . 'pi1/class.tx_jfcloudzoom_pi1.php');
 			$obj = t3lib_div::makeInstance('tx_jfcloudzoom_pi1');
-			$obj->contentKey = $obj->extKey . '_' . $this->cObj->data['uid'];
+			$obj->setContentKey($obj->extKey . '_' . $this->cObj->data['uid']);
 			$obj->conf = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_jfcloudzoom_pi1.'];
 			// override the width and height of the config
 			$obj->conf[$this->type.'.']['imagewidth']  = $GLOBALS['TSFE']->lastImageInfo[0];

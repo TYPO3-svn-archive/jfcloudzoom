@@ -1,3 +1,6 @@
+// Include the lib
+includeLibs.jfcloudzoom = EXT:jfcloudzoom/class.tx_jfcloudzoom.php
+
 plugin.tx_jfcloudzoom_pi1 {
 
 	jQueryNoConflict = {$plugin.tx_jfcloudzoom_pi1.jQueryNoConflict}
