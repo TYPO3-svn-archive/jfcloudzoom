@@ -77,17 +77,36 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 
 		if ($this->cObj->data['list_type'] == $this->extKey.'_pi1') {
 			$this->type = 'normal';
-			// It's a content, al data from flexform
-			// Set the Flexform information
-			$this->pi_initPIflexForm();
-			$piFlexForm = $this->cObj->data['pi_flexform'];
-			foreach ($piFlexForm['data'] as $sheet => $data) {
-				foreach ($data as $lang => $value) {
-					foreach ($value as $key => $val) {
-						$this->lConf[$key] = $this->pi_getFFvalue($piFlexForm, $key, $sheet);
-					}
-				}
-			}
+
+			// It's a content, all data from flexform
+
+			$this->lConf['mode']          = $this->getFlexformData('general', 'mode');
+			$this->lConf['images']        = $this->getFlexformData('general', 'images', ($this->lConf['mode'] == 'upload'));
+			$this->lConf['captions']      = $this->getFlexformData('general', 'captions', ($this->lConf['mode'] == 'upload'));
+			$this->lConf['damimages']     = $this->getFlexformData('general', 'damimages', ($this->lConf['mode'] == 'dam'));
+			$this->lConf['damcategories'] = $this->getFlexformData('general', 'damcategories', ($this->lConf['mode'] == 'dam_catedit'));
+
+			$this->lConf['imagewidth'] = $this->getFlexformData('settings', 'imagewidth');
+			$this->lConf['imageheight'] = $this->getFlexformData('settings', 'imageheight');
+			$this->lConf['thumbnailwidth'] = $this->getFlexformData('settings', 'thumbnailwidth');
+			$this->lConf['thumbnailheight'] = $this->getFlexformData('settings', 'thumbnailheight');
+			$this->lConf['scaleFactor'] = $this->getFlexformData('settings', 'scaleFactor');
+			$this->lConf['smoothMove'] = $this->getFlexformData('settings', 'smoothMove');
+			$this->lConf['position'] = $this->getFlexformData('settings', 'position');
+			$this->lConf['zoomWidth'] = $this->getFlexformData('settings', 'zoomWidth');
+			$this->lConf['zoomHeight'] = $this->getFlexformData('settings', 'zoomHeight');
+			$this->lConf['adjustX'] = $this->getFlexformData('settings', 'adjustX');
+			$this->lConf['adjustY'] = $this->getFlexformData('settings', 'adjustY');
+			$this->lConf['showTitle'] = $this->getFlexformData('settings', 'showTitle');
+			$this->lConf['softFocus'] = $this->getFlexformData('settings', 'softFocus');
+			$this->lConf['useThumbnails'] = $this->getFlexformData('settings', 'useThumbnails');
+
+			$this->lConf['tint'] = $this->getFlexformData('color', 'tint');
+			$this->lConf['tintOpacity'] = $this->getFlexformData('color', 'tintOpacity');
+			$this->lConf['lensOpacity'] = $this->getFlexformData('color', 'lensOpacity');
+			$this->lConf['titleOpacity'] = $this->getFlexformData('color', 'titleOpacity');
+
+			$this->lConf['options'] = $this->getFlexformData('special', 'options');
 
 			// define the key of the element
 			$this->setContentKey("jfcloudzoom_c" . $this->cObj->data['uid']);
@@ -276,7 +295,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	{
 		$damCats = t3lib_div::trimExplode(",", $dam_cat, true);
 		if (count($damCats) < 1) {
-			return;
+			return array();
 		} else {
 			// select subcategories
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
@@ -658,6 +677,42 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 		$_EXTKEY = $key;
 		include(t3lib_extMgm::extPath($key) . 'ext_emconf.php');
 		return $EM_CONF[$key]['version'];
+	}
+
+	/**
+	 * Extract the requested information from flexform
+	 * @param string $sheet
+	 * @param string $name
+	 * @param boolean $devlog
+	 * @return string
+	 */
+	protected function getFlexformData($sheet='', $name='', $devlog=true)
+	{
+		$this->pi_initPIflexForm();
+		$piFlexForm = $this->cObj->data['pi_flexform'];
+		if (! isset($piFlexForm['data'])) {
+			if ($devlog === true) {
+				t3lib_div::devLog("Flexform Data not set", $this->extKey, 1);
+			}
+			return null;
+		}
+		if (! isset($piFlexForm['data'][$sheet])) {
+			if ($devlog === true) {
+				t3lib_div::devLog("Flexform sheet '{$sheet}' not defined", $this->extKey, 1);
+			}
+			return null;
+		}
+		if (! isset($piFlexForm['data'][$sheet]['lDEF'][$name])) {
+			if ($devlog === true) {
+				t3lib_div::devLog("Flexform Data [{$sheet}][{$name}] does not exist", $this->extKey, 1);
+			}
+			return null;
+		}
+		if (isset($piFlexForm['data'][$sheet]['lDEF'][$name]['vDEF'])) {
+			return $this->pi_getFFvalue($piFlexForm, $name, $sheet);
+		} else {
+			return $piFlexForm['data'][$sheet]['lDEF'][$name];
+		}
 	}
 }
 
