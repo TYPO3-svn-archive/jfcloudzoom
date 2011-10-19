@@ -323,19 +323,9 @@
 							<exclude>1</exclude>
 							<label>LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.pi_flexform.tint</label>
 							<config>
-								<type>input</type>
-								<size>6</size>
-								<wizards>
-									<color>
-										<type>colorbox</type>
-										<dim>20x20</dim>
-										<tableStyle>border:solid 1px black;</tableStyle>
-										<script>wizard_colorpicker.php</script>
-										<JSopenParams>height=580,width=400,status=0,menubar=0,scrollbars=1</JSopenParams>
-										<exampleImg>gfx/wizard_colorpickerex.jpg</exampleImg>
-									</color>
-								</wizards>
-								<eval>#555555</eval>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jftcaforms/lib/class.tx_jftcaforms_tceFunc.php:&tx_jftcaforms_tceFunc->getColorPicker]]></userFunc>
+								<emptyValue>1</emptyValue>
 							</config>
 						</TCEforms>
 					</tint>

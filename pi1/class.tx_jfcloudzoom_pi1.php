@@ -54,6 +54,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	protected $jsFiles = array();
 	protected $js = array();
 	protected $css = array();
+	protected $piFlexForm = array();
 	protected $imageDir = 'uploads/tx_jfcloudzoom/';
 
 	/**
@@ -101,9 +102,9 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 			$this->lConf['softFocus'] = $this->getFlexformData('settings', 'softFocus');
 			$this->lConf['useThumbnails'] = $this->getFlexformData('settings', 'useThumbnails');
 
-			$this->lConf['tint'] = $this->getFlexformData('color', 'tint');
-			$this->lConf['tintOpacity'] = $this->getFlexformData('color', 'tintOpacity');
-			$this->lConf['lensOpacity'] = $this->getFlexformData('color', 'lensOpacity');
+			$this->lConf['tint']         = $this->getFlexformData('color', 'tint');
+			$this->lConf['tintOpacity']  = $this->getFlexformData('color', 'tintOpacity');
+			$this->lConf['lensOpacity']  = $this->getFlexformData('color', 'lensOpacity');
 			$this->lConf['titleOpacity'] = $this->getFlexformData('color', 'titleOpacity');
 
 			$this->lConf['options'] = $this->getFlexformData('special', 'options');
@@ -163,7 +164,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 			if ($this->lConf['smoothMove']) {
 				$this->conf[$this->type.'.']['smoothMove'] = $this->lConf['smoothMove'];
 			}
-			if ($this->lConf['tint']) {
+			if (strlen($this->lConf['tint']) == 6) {
 				$this->conf[$this->type.'.']['tint'] = $this->lConf['tint'];
 			}
 			if ($this->lConf['tintOpacity']) {
@@ -229,8 +230,15 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 		// clear the imageDir
 		$this->imageDir = '';
 		// get all fields for captions
-		$damCaptionFields = t3lib_div::trimExplode(',', $this->conf['damCaptionFields'], true);
-		$fields = (count($damCaptionFields) > 0 ? ','.implode(',tx_dam.', $damCaptionFields) : '');
+		$fieldsArray = array_merge(
+			t3lib_div::trimExplode(',', $this->conf['damCaptionFields'], true)
+		);
+		$fields = NULL;
+		if (count($fieldsArray) > 0) {
+			foreach ($fieldsArray as $field) {
+				$fields .= ',tx_dam.' . $field;
+			}
+		}
 		if ($fromCategory === true) {
 			// Get the images from dam category
 			$damcategories = $this->getDamcats($this->lConf['damcategories']);
@@ -239,7 +247,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 				'tx_dam',
 				'tx_dam_mm_cat',
 				'tx_dam_cat',
-				" AND tx_dam_cat.uid IN (".implode(",", $damcategories).") AND tx_dam.file_mime_type='image' AND tx_dam.sys_language_uid=" . $GLOBALS['TYPO3_DB']->fullQuoteStr($this->sys_language_uid, 'tx_dam'),
+				" AND tx_dam_cat.uid IN (".implode(",", $damcategories).") AND tx_dam.file_mime_type='image'",
 				'',
 				'tx_dam.sorting',
 				''
@@ -391,7 +399,8 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 			$options[] = "smoothMove: {$this->conf[$this->type.'.']['smoothMove']}";
 		}
 		if ($this->conf[$this->type.'.']['tint']) {
-			$options[] = "tint: '{$this->conf[$this->type.'.']['tint']}'";
+			$color = "#" . str_replace('#', '', $this->conf[$this->type.'.']['tint']);
+			$options[] = "tint: '{$color}'";
 		}
 		if (is_numeric($this->conf[$this->type.'.']['tintOpacity'])) {
 			$options[] = "tintOpacity: {$this->conf[$this->type.'.']['tintOpacity']}";
@@ -544,7 +553,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 				// Add script only once
 				$hash = md5($temp_js);
 				if ($this->conf['jsInline']) {
-					$GLOBALS['TSFE']->inlineJS[$hash] = $temp_css;
+					$GLOBALS['TSFE']->inlineJS[$hash] = $temp_js;
 				} elseif (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
 					if ($this->conf['jsInFooter'] || $allJsInFooter) {
 						$pagerender->addJsFooterInlineCode($hash, $temp_js, $this->conf['jsMinify']);
@@ -680,6 +689,19 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	}
 
 	/**
+	* Set the piFlexform data
+	*
+	* @return void
+	*/
+	protected function setFlexFormData()
+	{
+		if (! count($this->piFlexForm)) {
+			$this->pi_initPIflexForm();
+			$this->piFlexForm = $this->cObj->data['pi_flexform'];
+		}
+	}
+
+	/**
 	 * Extract the requested information from flexform
 	 * @param string $sheet
 	 * @param string $name
@@ -688,30 +710,29 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 	 */
 	protected function getFlexformData($sheet='', $name='', $devlog=true)
 	{
-		$this->pi_initPIflexForm();
-		$piFlexForm = $this->cObj->data['pi_flexform'];
-		if (! isset($piFlexForm['data'])) {
+		$this->setFlexFormData();
+		if (! isset($this->piFlexForm['data'])) {
 			if ($devlog === true) {
 				t3lib_div::devLog("Flexform Data not set", $this->extKey, 1);
 			}
 			return null;
 		}
-		if (! isset($piFlexForm['data'][$sheet])) {
+		if (! isset($this->piFlexForm['data'][$sheet])) {
 			if ($devlog === true) {
 				t3lib_div::devLog("Flexform sheet '{$sheet}' not defined", $this->extKey, 1);
 			}
 			return null;
 		}
-		if (! isset($piFlexForm['data'][$sheet]['lDEF'][$name])) {
+		if (! isset($this->piFlexForm['data'][$sheet]['lDEF'][$name])) {
 			if ($devlog === true) {
 				t3lib_div::devLog("Flexform Data [{$sheet}][{$name}] does not exist", $this->extKey, 1);
 			}
 			return null;
 		}
-		if (isset($piFlexForm['data'][$sheet]['lDEF'][$name]['vDEF'])) {
-			return $this->pi_getFFvalue($piFlexForm, $name, $sheet);
+		if (isset($this->piFlexForm['data'][$sheet]['lDEF'][$name]['vDEF'])) {
+			return $this->pi_getFFvalue($this->piFlexForm, $name, $sheet);
 		} else {
-			return $piFlexForm['data'][$sheet]['lDEF'][$name];
+			return $this->piFlexForm['data'][$sheet]['lDEF'][$name];
 		}
 	}
 }
