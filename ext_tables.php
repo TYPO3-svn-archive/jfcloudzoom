@@ -5,6 +5,7 @@ if (!defined ('TYPO3_MODE')) {
 
 // Static
 t3lib_extMgm::addStaticFile($_EXTKEY, 'static/', 'Cloud-Zoom');
+t3lib_extMgm::addStaticFile($_EXTKEY, 'static/tt_content/', 'Cloud-Zoom for tt_content');
 
 // CONTENT
 $tempColumns = Array (

@@ -18,7 +18,7 @@ plugin.tx_jfcloudzoom_pi1 {
 
 
 	# cat=plugin.tx_jfcloudzoom.basic/file/010; type=file[js]; label=jQuery Library: Location of the jQuery Lib
-	file.jQueryLibrary = EXT:jfcloudzoom/res/jquery/js/jquery-1.6.4.min.js
+	file.jQueryLibrary = EXT:jfcloudzoom/res/jquery/js/jquery-1.7.0.min.js
 
 	# cat=plugin.tx_jfcloudzoom.basic/file/020; type=file[js]; label=jQuery Cloud-Zoom: Location of the jQuery Cloud-Zoom
 	file.jQueryCloudZoom = EXT:jfcloudzoom/res/jquery/js/jquery.cloudzoom-1.0.2.min.js
