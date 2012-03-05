@@ -21,7 +21,7 @@ plugin.tx_jfcloudzoom_pi1 {
 	file.jQueryLibrary = EXT:jfcloudzoom/res/jquery/js/jquery-1.7.1.min.js
 
 	# cat=plugin.tx_jfcloudzoom.basic/file/020; type=file[js]; label=jQuery Cloud-Zoom: Location of the jQuery Cloud-Zoom
-	file.jQueryCloudZoom = EXT:jfcloudzoom/res/jquery/js/jquery.cloudzoom-1.0.2.min.js
+	file.jQueryCloudZoom = EXT:jfcloudzoom/res/jquery/js/jquery.cloudzoom-1.0.2a.min.js
 
 
 
@@ -67,7 +67,10 @@ plugin.tx_jfcloudzoom_pi1 {
 	# cat=plugin.tx_jfcloudzoom.basic/typo/140; type=boolean; label=Use thumbnails: Use thumbnails in case of multiple images
 	useThumbnails = 0
 
-	# cat=plugin.tx_jfcloudzoom.basic/typo/150; type=string; label=Options: Enter own options (see http://www.professorcloud.com/mainsite/cloud-zoom-integration.htm)
+	# cat=plugin.tx_jfcloudzoom.basic/typo/150; type=boolean; label=Maximum Z-Index: Defines the maximum z-index to use (must be greater as four)
+	maxZindex = 99
+
+	# cat=plugin.tx_jfcloudzoom.basic/typo/160; type=string; label=Options: Enter own options (see http://www.professorcloud.com/mainsite/cloud-zoom-integration.htm)
 	options = 
 
 

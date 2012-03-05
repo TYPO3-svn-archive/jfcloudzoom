@@ -85,20 +85,22 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 			$this->lConf['damimages']     = $this->getFlexformData('general', 'damimages', ($this->lConf['mode'] == 'dam'));
 			$this->lConf['damcategories'] = $this->getFlexformData('general', 'damcategories', ($this->lConf['mode'] == 'dam_catedit'));
 
-			$this->lConf['imagewidth'] = $this->getFlexformData('settings', 'imagewidth');
-			$this->lConf['imageheight'] = $this->getFlexformData('settings', 'imageheight');
-			$this->lConf['thumbnailwidth'] = $this->getFlexformData('settings', 'thumbnailwidth');
+			$this->lConf['imagewidth']      = $this->getFlexformData('settings', 'imagewidth');
+			$this->lConf['imageheight']     = $this->getFlexformData('settings', 'imageheight');
+			$this->lConf['thumbnailwidth']  = $this->getFlexformData('settings', 'thumbnailwidth');
 			$this->lConf['thumbnailheight'] = $this->getFlexformData('settings', 'thumbnailheight');
-			$this->lConf['scaleFactor'] = $this->getFlexformData('settings', 'scaleFactor');
-			$this->lConf['smoothMove'] = $this->getFlexformData('settings', 'smoothMove');
-			$this->lConf['position'] = $this->getFlexformData('settings', 'position');
-			$this->lConf['zoomWidth'] = $this->getFlexformData('settings', 'zoomWidth');
-			$this->lConf['zoomHeight'] = $this->getFlexformData('settings', 'zoomHeight');
-			$this->lConf['adjustX'] = $this->getFlexformData('settings', 'adjustX');
-			$this->lConf['adjustY'] = $this->getFlexformData('settings', 'adjustY');
-			$this->lConf['showTitle'] = $this->getFlexformData('settings', 'showTitle');
-			$this->lConf['softFocus'] = $this->getFlexformData('settings', 'softFocus');
-			$this->lConf['useThumbnails'] = $this->getFlexformData('settings', 'useThumbnails');
+			$this->lConf['scaleFactor']     = $this->getFlexformData('settings', 'scaleFactor');
+			$this->lConf['smoothMove']      = $this->getFlexformData('settings', 'smoothMove');
+			$this->lConf['position']        = $this->getFlexformData('settings', 'position');
+			$this->lConf['zoomWidth']       = $this->getFlexformData('settings', 'zoomWidth');
+			$this->lConf['zoomHeight']      = $this->getFlexformData('settings', 'zoomHeight');
+			$this->lConf['adjustX']         = $this->getFlexformData('settings', 'adjustX');
+			$this->lConf['adjustY']         = $this->getFlexformData('settings', 'adjustY');
+			$this->lConf['showTitle']       = $this->getFlexformData('settings', 'showTitle');
+			$this->lConf['softFocus']       = $this->getFlexformData('settings', 'softFocus');
+			$this->lConf['useThumbnails']   = $this->getFlexformData('settings', 'useThumbnails');
+			$this->lConf['maxZindex']       = $this->getFlexformData('settings', 'maxZindex');
+			
 
 			$this->lConf['tint']         = $this->getFlexformData('color', 'tint');
 			$this->lConf['tintOpacity']  = $this->getFlexformData('color', 'tintOpacity');
@@ -183,6 +185,9 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 			}
 			if ($this->lConf['useThumbnails'] < 2) {
 				$this->conf[$this->type.'.']['useThumbnails'] = $this->lConf['useThumbnails'];
+			}
+			if ($this->lConf['maxZindex']) {
+				$this->conf[$this->type.'.']['maxZindex'] = $this->lConf['maxZindex'];
 			}
 			$this->conf[$this->type.'.']['options']       = $this->lConf['options'];
 		} else {
@@ -416,6 +421,9 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 		}
 		$options[] = "softFocus: ".($this->conf[$this->type.'.']['softFocus'] ? 'true' : 'false');
 		$options[] = "showTitle: ".($this->conf[$this->type.'.']['showTitle'] ? 'true' : 'false');
+		if (is_numeric($this->conf[$this->type.'.']['maxZindex'])) {
+			$options[] = "maxZindex: ".$this->conf[$this->type.'.']['maxZindex'];
+		}
 
 		// overwrite all options if set
 		if (trim($this->conf[$this->type.'.']['options'])) {

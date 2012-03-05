@@ -30,6 +30,7 @@ plugin.tx_jfcloudzoom_pi1 {
 		showTitle = {$plugin.tx_jfcloudzoom_pi1.showTitle}
 		softFocus = {$plugin.tx_jfcloudzoom_pi1.softFocus}
 		useThumbnails = {$plugin.tx_jfcloudzoom_pi1.useThumbnails}
+		maxZindex = {$plugin.tx_jfcloudzoom_pi1.maxZindex}
 		options = {$plugin.tx_jfcloudzoom_pi1.options}
 
 		tint = {$plugin.tx_jfcloudzoom_pi1.tint}

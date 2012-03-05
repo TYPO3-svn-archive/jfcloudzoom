@@ -1,10 +1,9 @@
-//////////////////////////////////////////////////////////////////////////////////
-// Cloud Zoom V1.0.2
-// (c) 2010 by R Cecco. <http://www.professorcloud.com>
-// MIT License
-//
-// Please retain this copyright header in all versions of the software
-//////////////////////////////////////////////////////////////////////////////////
+/*!
+ * Cloud Zoom V1.0.2
+ * (c) 2010 by R Cecco. <http://www.professorcloud.com>
+ * MIT License
+ *
+ * Please retain this copyright header in all versions of the software */
 (function ($) {
 
 	$(document).ready(function () {
@@ -44,7 +43,7 @@
 		// images load really fast, e.g. from the cache. 
 		//var	ctx = this;
 		setTimeout(function () {
-			//						 <img src="/images/loading.gif"/>
+			// <img src="/images/loading.gif"/>
 			if ($mouseTrap === null) {
 				var w = jWin.width();
 				jWin.parent().append(format('<div style="width:%0px;position:absolute;top:75%;left:%1px;text-align:center" class="cloud-zoom-loading" >Loading...</div>', w / 3, (w / 2) - (w / 6))).find(':last').css('opacity', 0.5);
@@ -149,7 +148,7 @@
 		this.init2 = function (img, id) {
 
 			filesLoaded++;
-			//console.log(img.src + ' ' + id + ' ' + img.width);	
+			//console.log(img.src + ' ' + id + ' ' + img.width);
 			if (id === 1) {
 				zoomImage = img;
 			}
@@ -170,19 +169,19 @@
 		We need the dummy background image as IE does not trap mouse events on
 		transparent parts of a div.
 		*/
-			$mouseTrap = jWin.parent().append(format("<div class='mousetrap' style='background-image:url(\".\");z-index:999;position:absolute;width:%0px;height:%1px;left:%2px;top:%3px;\'></div>", sImg.outerWidth(), sImg.outerHeight(), 0, 0)).find(':last');
+			$mouseTrap = jWin.parent().append(format("<div class='mousetrap' style='background-image:url(\".\");z-index:"+(opts.maxZindex-1)+";position:absolute;width:%0px;height:%1px;left:%2px;top:%3px;\'></div>", sImg.outerWidth(), sImg.outerHeight(), 0, 0)).find(':last');
 
-			//////////////////////////////////////////////////////////////////////			
+			//////////////////////////////////////////////////////////////////////
 			/* Do as little as possible in mousemove event to prevent slowdown. */
 			$mouseTrap.bind('mousemove', this, function (event) {
 				// Just update the mouse position
 				mx = event.pageX;
 				my = event.pageY;
 			});
-			//////////////////////////////////////////////////////////////////////					
+			//////////////////////////////////////////////////////////////////////
 			$mouseTrap.bind('mouseleave', this, function (event) {
 				clearTimeout(controlTimer);
-				//event.data.removeBits();				
+				//event.data.removeBits();
 				if(lens) { lens.fadeOut(299); }
 				if($tint) { $tint.fadeOut(299); }
 				if(softFocus) { softFocus.fadeOut(299); }
@@ -191,7 +190,7 @@
 				});
 				return false;
 			});
-			//////////////////////////////////////////////////////////////////////			
+			//////////////////////////////////////////////////////////////////////
 			$mouseTrap.bind('mouseenter', this, function (event) {
 				mx = event.pageX;
 				my = event.pageY;
@@ -248,7 +247,7 @@
 					}
 				}
 
-				zoomDiv = appendTo.append(format('<div id="cloud-zoom-big" class="cloud-zoom-big" style="display:none;position:absolute;left:%0px;top:%1px;width:%2px;height:%3px;background-image:url(\'%4\');z-index:99;"></div>', xPos, yPos, w, h, zoomImage.src)).find(':last');
+				zoomDiv = appendTo.append(format('<div id="cloud-zoom-big" class="cloud-zoom-big" style="display:none;position:absolute;left:%0px;top:%1px;width:%2px;height:%3px;background-image:url(\'%4\');z-index:'+(opts.maxZindex-2)+';"></div>', xPos, yPos, w, h, zoomImage.src)).find(':last');
 
 				// Add the title from title tag.
 				if (sImg.attr('title') && opts.showTitle) {
@@ -277,13 +276,13 @@
 				ch = (sImg.outerHeight() / zoomImage.height) * zoomDiv.height();
 
 				// Attach mouse, initially invisible to prevent first frame glitch
-				lens = jWin.append(format("<div class = 'cloud-zoom-lens' style='display:none;z-index:98;position:absolute;width:%0px;height:%1px;'></div>", cw, ch)).find(':last');
+				lens = jWin.append(format("<div class = 'cloud-zoom-lens' style='display:none;z-index:"+(opts.maxZindex-3)+";position:absolute;width:%0px;height:%1px;'></div>", cw, ch)).find(':last');
 
 				$mouseTrap.css('cursor', lens.css('cursor'));
 
 				var noTrans = false;
 
-				// Init tint layer if needed. (Not relevant if using inside mode)			
+				// Init tint layer if needed. (Not relevant if using inside mode)
 				if (opts.tint) {
 					lens.css('background', 'url("' + sImg.attr('src') + '")');
 					$tint = jWin.append(format('<div style="display:none;position:absolute; left:0px; top:0px; width:%0px; height:%1px; background-color:%2;" />', sImg.outerWidth(), sImg.outerHeight(), opts.tint)).find(':last');
@@ -334,7 +333,7 @@
 		this.each(function () {
 			var	relOpts, opts;
 			// Hmm...eval...slap on wrist.
-			eval('var	a = {' + $(this).attr('rel') + '}');
+			eval('var a = {' + $(this).attr('rel') + '}');
 			relOpts = a;
 			if ($(this).is('.cloud-zoom')) {
 				$(this).css({
@@ -344,15 +343,17 @@
 				$('img', $(this)).css({
 					'display': 'block'
 				});
+				opts = $.extend({}, $.fn.CloudZoom.defaults, options);
+				opts = $.extend({}, opts, relOpts);
+				if (opts.maxZindex < 4) {
+					opts.maxZindex = 4;
+				}
 				// Wrap an outer div around the link so we can attach things without them becoming part of the link.
 				// But not if wrap already exists.
 				if ($(this).parent().attr('id') != 'wrap') {
-					$(this).wrap('<div id="wrap" style="top:0px;z-index:9999;position:relative;"></div>');
+					$(this).wrap('<div id="wrap" style="top:0px;z-index:'+(opts.maxZindex)+';position:relative;"></div>');
 				}
-				opts = $.extend({}, $.fn.CloudZoom.defaults, options);
-				opts = $.extend({}, opts, relOpts);
 				$(this).data('zoom', new CloudZoom($(this), opts));
-
 			} else if ($(this).is('.cloud-zoom-gallery')) {
 				opts = $.extend({}, relOpts, options);
 				$(this).data('relOpts', opts);
@@ -387,7 +388,8 @@
 		showTitle: true,
 		titleOpacity: 0.5,
 		adjustX: 0,
-		adjustY: 0
+		adjustY: 0,
+		maxZindex: 2
 	};
 
 })(jQuery);

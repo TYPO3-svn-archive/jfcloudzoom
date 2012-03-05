@@ -36,6 +36,7 @@
 			<label index="tt_content.pi_flexform.adjustX">Adjust X</label>
 			<label index="tt_content.pi_flexform.adjustY">Adjust Y</label>
 			<label index="tt_content.pi_flexform.useThumbnails">Use thumbnails in case of multiple images</label>
+			<label index="tt_content.pi_flexform.maxZindex">Maximum Z-Index (must be greater as four)</label>
 			<label index="tt_content.pi_flexform.sheet_color">Color</label>
 			<label index="tt_content.pi_flexform.tint">Tint Color</label>
 			<label index="tt_content.pi_flexform.tintOpacity">Tint opacityle</label>
