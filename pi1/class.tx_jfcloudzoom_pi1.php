@@ -252,7 +252,7 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 				'tx_dam',
 				'tx_dam_mm_cat',
 				'tx_dam_cat',
-				" AND tx_dam_cat.uid IN (".implode(",", $damcategories).") AND tx_dam.file_mime_type='image'",
+				" AND tx_dam_cat.uid IN (".implode(",", $damcategories).")",
 				'',
 				'tx_dam.sorting',
 				''
@@ -268,7 +268,9 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 				'jfcloudzoom',
 				'tx_dam_mm_ref',
 				tx_dam_db::getMetaInfoFieldList() . $fields,
-				"tx_dam.file_mime_type = 'image'"
+				'',
+				'',
+				'tx_dam_mm_ref.sorting_foreign'
 			);
 		}
 		if (count($images['rows']) > 0) {
@@ -280,20 +282,24 @@ class tx_jfcloudzoom_pi1 extends tslib_pibase
 			// add image
 			foreach ($images['rows'] as $key => $row) {
 				$row = tx_dam_db::getRecordOverlay('tx_dam', $row, $conf);
-				// set the data
-				$this->images[] = $row['file_path'].$row['file_name'];$
-				// set the caption
-				$caption = '';
-				unset($caption);
-				if (count($damCaptionFields) > 0) {
-					foreach ($damCaptionFields as $damCaptionField) {
-						if (! isset($caption) && trim($row[$damCaptionField])) {
-							$caption = $row[$damCaptionField];
-							break;
+				$absFileName = t3lib_div::getFileAbsFileName($row['file_path'] . $row['file_name']);
+				$size = @getimagesize($absFileName);
+				if (preg_match("/^image\//i", $size['mime'])) {
+					// set the data
+					$this->images[] = $row['file_path'] . $row['file_name'];$
+					// set the caption
+					$caption = '';
+					unset($caption);
+					if (count($damCaptionFields) > 0) {
+						foreach ($damCaptionFields as $damCaptionField) {
+							if (! isset($caption) && trim($row[$damCaptionField])) {
+								$caption = $row[$damCaptionField];
+								break;
+							}
 						}
 					}
+					$this->captions[] = $caption;
 				}
-				$this->captions[] = $caption;
 			}
 		}
 		return TRUE;
