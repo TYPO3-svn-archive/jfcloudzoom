@@ -35,7 +35,7 @@ $TCA['tt_content']['palettes']['tx_jfcloudzoom'] = array(
 	'showitem' => 'tx_jfcloudzoom_activate,tx_jfcloudzoom_factor',
 	'canNotCollapse' => 1,
 );
-t3lib_extMgm::addToAllTCAtypes('tt_content', '--palette--;LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.tx_jfcloudzoom_title;tx_jfcloudzoom', 'textpic', 'before:imagecaption');
+t3lib_extMgm::addToAllTCAtypes('tt_content', '--palette--;LLL:EXT:jfcloudzoom/locallang_db.xml:tt_content.tx_jfcloudzoom_title;tx_jfcloudzoom', 'textpic,image', 'before:imagecaption');
 $TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY.'_pi1'] = 'layout,select_key,pages';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi1'] = 'pi_flexform';
 
